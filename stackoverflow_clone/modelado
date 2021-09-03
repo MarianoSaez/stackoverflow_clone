@@ -1,0 +1,42 @@
+USUARIO : {
+	"nombre" : String,
+	"nickname" : String,
+	"imagen_usuario" : Image,
+	"ubicacion" : String,
+	"titulos" : Array <String>,
+	"descripcion" : String,
+	"links_trabajo" : Array <Url>,
+	
+	"respuestas" : Array <RESPUESTA>,
+	"preguntas" : Array <PREGUNTA>,
+	"preguntas_seguidas" : Array <PREGUNTA>,
+}
+
+PREGUNTA : {
+	"titulo" : String,
+	"fecha" : Date,
+	"likes" : int,
+	"dislikes": int,
+	"tags" : Array <String>,
+	"respondida" : Boolean,
+
+	"respuesta_aceptada" : RESPUESTA,
+	"comentarios" : Array <COMENTARIO>,
+	"usuario" : USUARIO,
+
+}
+
+REPUESTA : {
+	"descripcion" : String,
+	"fecha" : Date,
+	"likes" : int,
+	"dislikes" : int,
+	"comentarios" : Array <COMENTARIOS>,
+	"usuario" : USUARIO,	
+}
+
+COMENTARIO : {
+	"descripcion" : String,
+	"fecha" : Date,
+	"usuario" : USUARIO,
+}
