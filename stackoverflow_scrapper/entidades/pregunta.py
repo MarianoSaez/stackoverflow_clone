@@ -34,7 +34,7 @@ class Pregunta:
     @fecha.setter
     def fecha(self, value):
         if value != None:
-            self.__fecha = value.text
+            self.__fecha = value.get("title")
         else:
             self.__fecha = "NA"
 
@@ -48,6 +48,30 @@ class Pregunta:
             self.__descripcion = value.text
         else:
             self.__descripcion = "NA"
+
+    @property
+    def votes(self):
+        return self.__votes
+
+    @votes.setter
+    def votes(self, value):
+        if value != None:
+            self.__votes = int(value.text)
+        else:
+            self.__votes = 0
+
+    @property
+    def tags(self):
+        return self.__tags
+
+    @tags.setter
+    def tags(self, value):
+        if value != None:
+            self.__tags = list(set([i.text for i in value])) # Cochino de momento :v
+        else:
+            self.__tags = list()
+
+    
 
     def jsonize(self):
         return json.dumps(self.__dict__)
