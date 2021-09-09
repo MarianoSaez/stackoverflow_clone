@@ -1,9 +1,10 @@
 USUARIO : {
 	"nombre" : String,
 	"nickname" : String,
+	"password" : Password,
 	"imagen_usuario" : Image,
 	"ubicacion" : String,
-	"titulos" : Array <String>,
+	"especialidades" : Array <String>,
 	"descripcion" : String,
 	"links_trabajo" : Array <Url>,
 	
@@ -15,11 +16,12 @@ USUARIO : {
 PREGUNTA : {
 	"titulo" : String,
 	"fecha" : Date,
-	"likes" : int,
-	"dislikes": int,
+	"descripcion" : String,
+	"votes" : int,
 	"tags" : Array <String>,
 	"respondida" : Boolean,
 
+	"respuestas" : Array <RESPUESTA>,
 	"respuesta_aceptada" : RESPUESTA,
 	"comentarios" : Array <COMENTARIO>,
 	"usuario" : USUARIO,
@@ -27,10 +29,10 @@ PREGUNTA : {
 }
 
 REPUESTA : {
-	"descripcion" : String,
 	"fecha" : Date,
-	"likes" : int,
-	"dislikes" : int,
+	"descripcion" : String,
+	"votes" : int,
+	"tags" : Array <String>
 	"comentarios" : Array <COMENTARIOS>,
 	"usuario" : USUARIO,	
 }

@@ -1,20 +1,26 @@
 import json
+from .respuesta import Respuesta
+from bs4 import BeautifulSoup
 
 
 class Pregunta:
+    _id = 0
     def __init__(self, titulo, fecha, descripcion, votes=0,
-                 tags=None, comentarios=None, respuestas=None,
-                 respuesta_aceptada=None, usuario=None, respondida=None):
+                 tags=None, respondida=None, respuestas=None,
+                 respuesta_aceptada=None, comentarios=None, usuario=None):
+        self._id = type(self)._id
+        type(self)._id += 1
         self.titulo = titulo
         self.fecha = fecha
         self.descripcion = descripcion
         self.votes = votes
         self.tags = tags
-        self.comentarios = comentarios
-        self.respuestas = respuestas
-        self.respuesta_aceptada = respuesta_aceptada
-        self.usuario = usuario
         self.respondida = respondida
+        
+        self.respuestas = respuestas
+        # self.respuesta_aceptada = respuesta_aceptada [Agregado cuando respondida == True]
+        self.comentarios = comentarios
+        self.usuario = usuario
 
     @property
     def titulo(self):
@@ -71,7 +77,38 @@ class Pregunta:
         else:
             self.__tags = list()
 
-    
+    @property
+    def respondida(self):
+        return self.__respondida
+
+    @respondida.setter
+    def respondida(self, value):
+        if value != None:
+
+            fecha = value.find("span", attrs={"class" : "relativetime"})
+            descripcion = value.find("div", attrs={"class" : "s-prose js-post-body"})
+            votes = value.find("div", attrs={"class" : "js-vote-count flex--item d-flex fd-column ai-center fc-black-500 fs-title"})
+            
+            self.__respuesta_aceptada = Respuesta(fecha, descripcion, votes)
+            self.__respondida = True
+
+        else:
+            self.__respondida = False
+            self.__respuesta_aceptada = "NA"
+
+    @property
+    def respuestas(self):
+        return self.__respuestas
+
+    @respuestas.setter
+    def respuestas(self, value):
+        if value != None:
+            self.__respuestas = [i.id for i in value]
+        else:
+            self.__respuestas = 0
+
+
+
 
     def jsonize(self):
         return json.dumps(self.__dict__)
