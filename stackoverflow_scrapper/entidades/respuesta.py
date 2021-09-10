@@ -45,6 +45,17 @@ class Respuesta:
         else:
             self.__votes = 0
 
+    @property
+    def usuario(self):
+        return self.__usuario
+
+    @usuario.setter
+    def usuario(self, value):
+        if value != None:
+            self.__usuario = value.text
+        else:
+            self.__usuario = "ANON"
+
     def __repr__(self):
         rep = ""
         for i in self.__dict__:

@@ -3,13 +3,17 @@ import pandas as pd
 from bs4 import BeautifulSoup
 from entidades.pregunta import Pregunta
 from entidades.respuesta import Respuesta
-from utils.utils import check_existance
+from entidades.comentario import Comentario
+from utils import collectComments
+from time import sleep
 
 # TODO 
-#   Enlazar preguntas, respuestas, comentarios y usarios entre si
-#       Quizas por ID que stackoverflow asigna (creo que lo hace) para
-#       desprenderse del ObjectId() que debe ser generado en js o en su defecto
-#       usar alguna libreria que lo simule
+#   Crear usuarios - Ya sea de forma aleatoria usando los nombres en los post's
+#   o ingresando a cada perfil de usuario real (COSTOSO EN TIEMPO)
+#
+#   Volcar objetos en un formato serializado JSON para su posterior importacion
+#   a MongoDB
+
 
 
 driver = webdriver.Firefox()
@@ -55,8 +59,8 @@ for i in tags:
         pregunta = Pregunta(titulo, fecha, desc, votes, tags,
                             respuesta_aceptada)
 
+        # REPUESTAS
         respuestas = list()
-
         # Se completa la lista que se agregara a la pregunta
         for ans in src.findAll("div", attrs={"class" : "answer"}):
             fecha_rta = ans.find("span", attrs={"class" : "relativetime"})
@@ -66,20 +70,41 @@ for i in tags:
             # Se construye el objeto respuesta con atributos disponibles
             respuesta = Respuesta(fecha_rta, descripcion_rta, votes_rta)
 
+            comentarios_rta = list()
+            lista_ans = ans.findAll("div", attrs={"class" : "comment-body js-comment-edit-hide"})
+
+            collectComments(lista_ans, comentarios_rta)
+
+            # Los comentarios se agregaran en forma embebida por lo que se agrega la instancia
+            respuesta.comentarios = comentarios_rta
+
             respuestas.append(respuesta)
-
         
+        # COMENTARIOS
+        comentarios = list()
+        lista_src = src.find("div", attrs={"class" : "post-layout"}).findAll("div", attrs={"class" : "comment-body js-comment-edit-hide"})
+
+        collectComments(lista_src, comentarios)
+
+
+        # USUARIO
+        # TODO : Buscar o asignar un ID a este usuario
+        try:
+            usuario = src\
+                    .find("div", attrs={"class" : "post-layout"})\
+                    .find("div", attrs={"class" : "user-details", "itemprop" : "author"})\
+                    .find("a", href=True)
+        except AttributeError:
+            usuario = None
+
+        # Agregando mas atributos de pregunta
+        pregunta.comentarios = comentarios
+        pregunta.respuestas = [i._id for i in respuestas] # Se agregaran por referencia por lo q se usa el id
+        pregunta.usuario = usuario
 
 
 
-
-
-
-
-        print("\n==============================\n")
-        for k in pregunta.__dict__:
-            print(f"\n{k.upper()}")
-            print(pregunta.__dict__[k])
+        print(pregunta)
 
 driver.close()
             

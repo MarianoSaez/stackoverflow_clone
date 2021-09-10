@@ -1,6 +1,7 @@
 import json
 from .respuesta import Respuesta
 from bs4 import BeautifulSoup
+from utils import collectComments
 
 
 class Pregunta:
@@ -85,11 +86,24 @@ class Pregunta:
     def respondida(self, value):
         if value != None:
 
+            try:
+                usuario = value.find("div", attrs={"class" : "post-layout"}).find("div", attrs={"class" : "user-details", "itemprop" : "author"}).find("a", href=True)
+            except AttributeError:
+                usuario = None
+
             fecha = value.find("span", attrs={"class" : "relativetime"})
             descripcion = value.find("div", attrs={"class" : "s-prose js-post-body"})
             votes = value.find("div", attrs={"class" : "js-vote-count flex--item d-flex fd-column ai-center fc-black-500 fs-title"})
             
-            self.__respuesta_aceptada = Respuesta(fecha, descripcion, votes)
+            lista_value = value.findAll("div", attrs={"class" : "comment-body js-comment-edit-hide"})
+            comentarios = list()
+
+            collectComments(lista_value, comentarios)
+
+            
+
+
+            self.__respuesta_aceptada = Respuesta(fecha, descripcion, votes, comentarios, usuario)
             self.__respondida = True
 
         else:
@@ -103,9 +117,26 @@ class Pregunta:
     @respuestas.setter
     def respuestas(self, value):
         if value != None:
-            self.__respuestas = [i.id for i in value]
+            self.__respuestas = value
         else:
-            self.__respuestas = 0
+            self.__respuestas = list()
+
+    @property
+    def usuario(self):
+        return self.__usuario
+
+    @usuario.setter
+    def usuario(self, value):
+        if value != None:
+            self.__usuario = value.text
+        else:
+            self.__usuario = "ANON"
+
+    def __repr__(self):
+        rep = ""
+        for i in self.__dict__:
+            rep += f"\n{i.upper()}\n{self.__dict__[i]}\n"
+        return rep
 
 
 
