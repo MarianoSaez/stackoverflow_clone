@@ -5,14 +5,15 @@ from entidades.pregunta import Pregunta
 from entidades.respuesta import Respuesta
 from entidades.comentario import Comentario
 from utils import collectComments
-from time import sleep
+import json
+from encoder import MyEncoder
 
 # TODO 
 #   Crear usuarios - Ya sea de forma aleatoria usando los nombres en los post's
 #   o ingresando a cada perfil de usuario real (COSTOSO EN TIEMPO)
 #
 #   Volcar objetos en un formato serializado JSON para su posterior importacion
-#   a MongoDB
+#   a MongoDB - DONE
 
 
 
@@ -29,7 +30,8 @@ tags = [
     # "processes",
 ]
 
-
+questions = list()
+answers = list()
 
 for i in tags:
     links = list()
@@ -79,6 +81,7 @@ for i in tags:
             respuesta.comentarios = comentarios_rta
 
             respuestas.append(respuesta)
+            answers.append(respuesta)
         
         # COMENTARIOS
         comentarios = list()
@@ -102,11 +105,16 @@ for i in tags:
         pregunta.respuestas = [i._id for i in respuestas] # Se agregaran por referencia por lo q se usa el id
         pregunta.usuario = usuario
 
+        questions.append(pregunta)
 
 
-        print(pregunta)
 
 driver.close()
-            
 
+with open("stackoverflow_scrapper/out/questions.json", "w+") as f:
+    questionCollection = json.dumps(questions, cls=MyEncoder, indent=4)
+    f.write(questionCollection)
 
+with open("stackoverflow_scrapper/out/answers.json", "w+") as f:
+    answerCollection = json.dumps(answers, cls=MyEncoder, indent=4)
+    f.write(answerCollection)

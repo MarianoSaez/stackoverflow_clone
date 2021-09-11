@@ -39,12 +39,9 @@ class Comentario:
             self.__usuario = value.text
         else:
             self.__usuario = "NA"
-
+ 
     def __repr__(self):
-        rep = ""
-        for i in self.__dict__:
-            rep += f"\n{i.upper()}\n{self.__dict__[i]}\n"
-        return rep
+        return str(self.__dict__)
 
     def jsonize(self):
         return json.dumps(self.__dict__)

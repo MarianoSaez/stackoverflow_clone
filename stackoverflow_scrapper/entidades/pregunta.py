@@ -19,7 +19,6 @@ class Pregunta:
         self.respondida = respondida
         
         self.respuestas = respuestas
-        # self.respuesta_aceptada = respuesta_aceptada [Agregado cuando respondida == True]
         self.comentarios = comentarios
         self.usuario = usuario
 
@@ -133,13 +132,7 @@ class Pregunta:
             self.__usuario = "ANON"
 
     def __repr__(self):
-        rep = ""
-        for i in self.__dict__:
-            rep += f"\n{i.upper()}\n{self.__dict__[i]}\n"
-        return rep
-
-
-
+        return str(self.__dict__)
 
     def jsonize(self):
         return json.dumps(self.__dict__)
