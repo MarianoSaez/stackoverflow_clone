@@ -12,8 +12,9 @@ from encoder import MyEncoder
 #   Crear usuarios - Ya sea de forma aleatoria usando los nombres en los post's
 #   o ingresando a cada perfil de usuario real (COSTOSO EN TIEMPO)
 #
-#   Volcar objetos en un formato serializado JSON para su posterior importacion
-#   a MongoDB - DONE
+#   No se esta encontrando a los autores de las respuestas se ve en la salida que
+#   el usuario ANON por default esta recibiendo todas las respuestas - Checkear
+#   la secuencia de busqueda del usuario para cada respuesta
 
 driver = webdriver.Firefox()
 
@@ -72,7 +73,7 @@ for i in tags:
             descripcion_rta = ans.find("div", attrs={"class" : "s-prose js-post-body"})
             votes_rta = ans.find("div", attrs={"class" : "js-vote-count flex--item d-flex fd-column ai-center fc-black-500 fs-title"})
             try:
-                usuario_rta = ans.find("div", attrs={"class" : "user-details"}).find("span", attrs={"class" : "d-none"})
+                usuario_rta = ans.find("div", attrs={"class" : "user-details"}).find("a", href=True)
             except AttributeError:
                 usuario_rta = None
 
@@ -86,11 +87,13 @@ for i in tags:
             # Los comentarios se agregaran en forma embebida por lo que se agrega la instancia
             respuesta.comentarios = comentarios_rta
 
-            respuesta.useUserDB(userDB, usuario_rta, pregunta.titulo, pregunta._id)
+            usuario_rta_id = respuesta.useUserDB(userDB, respuesta.usuario, pregunta.titulo, pregunta._id)
+
+            respuesta.usuario_id = usuario_rta_id
 
             respuestas.append(respuesta)
             answers.append(respuesta)
-        
+
         # COMENTARIOS
         comentarios = list()
         lista_src = src.find("div", attrs={"class" : "post-layout"}).findAll("div", attrs={"class" : "comment-body js-comment-edit-hide"})
@@ -114,7 +117,9 @@ for i in tags:
         pregunta.usuario = usuario
 
         # Agregar el usuario que hizo la pregunta a la DB
-        pregunta.useUserDB(userDB, pregunta.usuario)
+        usuario_id = pregunta.useUserDB(userDB, pregunta.usuario)
+
+        pregunta.usuario_id = usuario_id
 
         questions.append(pregunta)
 

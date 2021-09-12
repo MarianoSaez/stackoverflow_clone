@@ -145,6 +145,7 @@ class Pregunta:
             "titulo" : self.titulo,
             "_id" : self._id,
         })
+        return DB[name]._id
 
 if __name__ == "__main__":
     p = Pregunta(0,0,0,0,0,0,0,0,0,0,0)

@@ -1,8 +1,5 @@
 class Comentario:
-    _id = 0
     def __init__(self, descripcion, fecha, usuario=None):
-        self._id = type(self)._id
-        type(self)._id += 1
         self.descripcion = descripcion
         self.fecha = fecha
         self.usuario = usuario

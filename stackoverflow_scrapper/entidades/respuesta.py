@@ -69,6 +69,7 @@ class Respuesta:
             "pregunta_id" : pregunta_id,
             "respuesta_id" : self._id,
         })
+        return DB[name]._id
 
 
     def jsonize(self):
