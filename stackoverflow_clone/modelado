@@ -10,6 +10,7 @@ USUARIO : {
 	
 	"respuestas" : Array <RESPUESTA>,
 	"preguntas" : Array <PREGUNTA>,
+	"comentarios" : Array <COMENTARIO>,
 	"preguntas_seguidas" : Array <PREGUNTA>,
 }
 

@@ -2,8 +2,6 @@ import json
 from .respuesta import Respuesta
 from .usuario import Usuario
 from bs4 import BeautifulSoup
-from utils import collectComments
-
 
 class Pregunta:
     _id = 0
@@ -86,24 +84,7 @@ class Pregunta:
     def respondida(self, value):
         if value != None:
 
-            try:
-                usuario = value.find("div", attrs={"class" : "post-layout"}).find("div", attrs={"class" : "user-details", "itemprop" : "author"}).find("a", href=True)
-            except AttributeError:
-                usuario = None
-
-            fecha = value.find("span", attrs={"class" : "relativetime"})
-            descripcion = value.find("div", attrs={"class" : "s-prose js-post-body"})
-            votes = value.find("div", attrs={"class" : "js-vote-count flex--item d-flex fd-column ai-center fc-black-500 fs-title"})
-            
-            lista_value = value.findAll("div", attrs={"class" : "comment-body js-comment-edit-hide"})
-            comentarios = list()
-
-            collectComments(lista_value, comentarios)
-
-            
-
-
-            self.__respuesta_aceptada = Respuesta(fecha, descripcion, votes, comentarios, usuario)
+            self.__respuesta_aceptada = value
             self.__respondida = True
 
         else:

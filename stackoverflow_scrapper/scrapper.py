@@ -4,33 +4,24 @@ from entidades.pregunta import Pregunta
 from entidades.respuesta import Respuesta
 from entidades.comentario import Comentario
 from entidades.usuario import Usuario
-from utils import collectComments
+from utils import collectComments, MyEncoder, rectifyTags
 import json
-from encoder import MyEncoder
 
 # TODO 
 #   Crear usuarios - Ya sea de forma aleatoria usando los nombres en los post's
 #   o ingresando a cada perfil de usuario real (COSTOSO EN TIEMPO)
-#
-#   No se esta encontrando a los autores de las respuestas se ve en la salida que
-#   el usuario ANON por default esta recibiendo todas las respuestas - Checkear
-#   la secuencia de busqueda del usuario para cada respuesta
+
 
 driver = webdriver.Firefox()
 
 tags = [
     "python",
-    # "javascript",
-    # "js",
-    # "python-3.x",
-    # "java",
-    # "sockets",
-    # "threads",
-    # "processes",
-    # "mongodb",
-    # "sql",
-    # "django",
-    # "flask",
+    "javascript",
+    "sockets",
+    "threads",
+    "mongodb",
+    "regex",
+    "django",
 ]
 
 questions = list()
@@ -63,7 +54,7 @@ for i in tags:
         respuesta_aceptada = src.find("div", attrs={"class" : "answer accepted-answer"})
 
         # Se construye el objeto pregunta con atributos disponibles
-        pregunta = Pregunta(titulo, fecha, desc, votes, tags, respuesta_aceptada)
+        pregunta = Pregunta(titulo, fecha, desc, votes, tags)
 
         # REPUESTAS
         respuestas = list()
@@ -73,16 +64,19 @@ for i in tags:
             descripcion_rta = ans.find("div", attrs={"class" : "s-prose js-post-body"})
             votes_rta = ans.find("div", attrs={"class" : "js-vote-count flex--item d-flex fd-column ai-center fc-black-500 fs-title"})
             try:
-                usuario_rta = ans.find("div", attrs={"class" : "user-details"}).find("a", href=True)
+                usuario_rta = ans.find("div", attrs={"class" : "user-details", "itemprop" : "author"}).find("a", href=True)
             except AttributeError:
                 usuario_rta = None
 
             # Se construye el objeto respuesta con atributos disponibles
             respuesta = Respuesta(fecha_rta, descripcion_rta, votes_rta, usuario=usuario_rta)
+          
+            if "accepted-answer" in ans.get("class"):
+                pregunta.respondida = respuesta
 
             comentarios_rta = list()
             lista_ans = ans.findAll("div", attrs={"class" : "comment-body js-comment-edit-hide"})
-            collectComments(lista_ans, comentarios_rta)
+            collectComments(lista_ans, comentarios_rta, userDB, pregunta.titulo, pregunta._id)
 
             # Los comentarios se agregaran en forma embebida por lo que se agrega la instancia
             respuesta.comentarios = comentarios_rta
@@ -97,7 +91,7 @@ for i in tags:
         # COMENTARIOS
         comentarios = list()
         lista_src = src.find("div", attrs={"class" : "post-layout"}).findAll("div", attrs={"class" : "comment-body js-comment-edit-hide"})
-        collectComments(lista_src, comentarios)
+        collectComments(lista_src, comentarios, userDB, pregunta.titulo, pregunta._id)
 
 
         # USUARIO
@@ -125,16 +119,19 @@ for i in tags:
 
 driver.close()
 
-print(json.dumps(userDB, cls=MyEncoder, indent=4))
+users = list(userDB.values())
 
 with open("stackoverflow_scrapper/out/questions.json", "w+") as f:
     questionCollection = json.dumps(questions, cls=MyEncoder, indent=4)
-    f.write(questionCollection)
+    rectifiedQuestions = rectifyTags(questionCollection)
+    f.write(rectifiedQuestions)
 
 with open("stackoverflow_scrapper/out/answers.json", "w+") as f:
     answerCollection = json.dumps(answers, cls=MyEncoder, indent=4)
-    f.write(answerCollection)
+    rectifiedAnswers = rectifyTags(answerCollection)
+    f.write(rectifiedAnswers)
 
 with open("stackoverflow_scrapper/out/users.json", "w+") as f:
     userCollection = json.dumps(users, cls=MyEncoder, indent=4)
-    f.write(userCollection)
+    rectifiedUsers = rectifyTags(userCollection)
+    f.write(rectifiedUsers)

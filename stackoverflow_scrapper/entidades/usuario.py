@@ -14,6 +14,7 @@ class Usuario:
 
         self.respuestas = list()
         self.preguntas = list()
+        self.comentarios = list()
         # self.preguntas_seguidas = preguntas_seguidas
 
     @property

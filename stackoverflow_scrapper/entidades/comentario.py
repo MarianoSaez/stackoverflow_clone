@@ -1,3 +1,6 @@
+from .usuario import Usuario
+
+
 class Comentario:
     def __init__(self, descripcion, fecha, usuario=None):
         self.descripcion = descripcion
@@ -40,6 +43,15 @@ class Comentario:
  
     def __repr__(self):
         return str(self.__dict__)
+
+    def useUserDB(self, DB, name, titulo, pregunta_id):
+        if name not in DB:
+            DB[name] = Usuario(name)
+        DB[name].comentarios.append({
+            "titulo" : titulo,
+            "pregunta_id" : pregunta_id,
+        })
+        return DB[name]._id
 
     def jsonize(self):
         return json.dumps(self.__dict__)
