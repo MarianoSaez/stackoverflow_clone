@@ -49,8 +49,9 @@ def rectifyTags(JSON : str):
         r"\"_.*__usuario\"",
         r"\"_.*__respuestas\"",
         r"\"_.*__comentarios\"",
-        r'(\"\d{4}(-\d{2}){2}\s.*Z\")',
-        r'(\"\d{4}(-\d{2}){2}\s.*Z)\,.*\"'
+        # r'(\"\d{4}(-\d{2}){2}\s.*Z\")',
+        # r'(\"\d{4}(-\d{2}){2}\s.*Z)\,.*\"',
+        r"(\"\d{4}-\d{2}-\d{2})\s(.*Z)(\"|\,.*\")",
     ]
 
     replaceList = [
@@ -64,8 +65,9 @@ def rectifyTags(JSON : str):
         '"usuario"',
         '"respuestas"',
         '"comentarios"',
-        r'{ "$date" : \1 }',
-        r'{ "$date" : \1" }'
+        # r'{ "$date" : \1 }',
+        # r'{ "$date" : \1" }',
+        r'{ "$date" : \1T\2" }'
     ]
 
     for i in range(len(rgxList)):
