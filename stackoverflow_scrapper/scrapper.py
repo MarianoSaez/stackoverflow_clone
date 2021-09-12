@@ -1,9 +1,9 @@
 from selenium import webdriver
-import pandas as pd
 from bs4 import BeautifulSoup
 from entidades.pregunta import Pregunta
 from entidades.respuesta import Respuesta
 from entidades.comentario import Comentario
+from entidades.usuario import Usuario
 from utils import collectComments
 import json
 from encoder import MyEncoder
@@ -14,8 +14,6 @@ from encoder import MyEncoder
 #
 #   Volcar objetos en un formato serializado JSON para su posterior importacion
 #   a MongoDB - DONE
-
-
 
 driver = webdriver.Firefox()
 
@@ -28,13 +26,19 @@ tags = [
     # "sockets",
     # "threads",
     # "processes",
+    # "mongodb",
+    # "sql",
+    # "django",
+    # "flask",
 ]
 
 questions = list()
 answers = list()
+users = list()
+
+userDB = dict()
 
 for i in tags:
-    links = list()
     driver.get(f"https://stackoverflow.com/questions/tagged/{i}?tab=Frequent")
 
     content = driver.page_source
@@ -58,8 +62,7 @@ for i in tags:
         respuesta_aceptada = src.find("div", attrs={"class" : "answer accepted-answer"})
 
         # Se construye el objeto pregunta con atributos disponibles
-        pregunta = Pregunta(titulo, fecha, desc, votes, tags,
-                            respuesta_aceptada)
+        pregunta = Pregunta(titulo, fecha, desc, votes, tags, respuesta_aceptada)
 
         # REPUESTAS
         respuestas = list()
@@ -68,17 +71,22 @@ for i in tags:
             fecha_rta = ans.find("span", attrs={"class" : "relativetime"})
             descripcion_rta = ans.find("div", attrs={"class" : "s-prose js-post-body"})
             votes_rta = ans.find("div", attrs={"class" : "js-vote-count flex--item d-flex fd-column ai-center fc-black-500 fs-title"})
+            try:
+                usuario_rta = ans.find("div", attrs={"class" : "user-details"}).find("span", attrs={"class" : "d-none"})
+            except AttributeError:
+                usuario_rta = None
 
             # Se construye el objeto respuesta con atributos disponibles
-            respuesta = Respuesta(fecha_rta, descripcion_rta, votes_rta)
+            respuesta = Respuesta(fecha_rta, descripcion_rta, votes_rta, usuario=usuario_rta)
 
             comentarios_rta = list()
             lista_ans = ans.findAll("div", attrs={"class" : "comment-body js-comment-edit-hide"})
-
             collectComments(lista_ans, comentarios_rta)
 
             # Los comentarios se agregaran en forma embebida por lo que se agrega la instancia
             respuesta.comentarios = comentarios_rta
+
+            respuesta.useUserDB(userDB, usuario_rta, pregunta.titulo, pregunta._id)
 
             respuestas.append(respuesta)
             answers.append(respuesta)
@@ -86,7 +94,6 @@ for i in tags:
         # COMENTARIOS
         comentarios = list()
         lista_src = src.find("div", attrs={"class" : "post-layout"}).findAll("div", attrs={"class" : "comment-body js-comment-edit-hide"})
-
         collectComments(lista_src, comentarios)
 
 
@@ -94,9 +101,10 @@ for i in tags:
         # TODO : Buscar o asignar un ID a este usuario
         try:
             usuario = src\
-                    .find("div", attrs={"class" : "post-layout"})\
-                    .find("div", attrs={"class" : "user-details", "itemprop" : "author"})\
-                    .find("a", href=True)
+                      .find("div", attrs={"class" : "post-layout"})\
+                      .find("div", attrs={"class" : "user-details", "itemprop" : "author"})\
+                      .find("a", href=True)
+        
         except AttributeError:
             usuario = None
 
@@ -105,11 +113,14 @@ for i in tags:
         pregunta.respuestas = [i._id for i in respuestas] # Se agregaran por referencia por lo q se usa el id
         pregunta.usuario = usuario
 
+        # Agregar el usuario que hizo la pregunta a la DB
+        pregunta.useUserDB(userDB, pregunta.usuario)
+
         questions.append(pregunta)
 
-
-
 driver.close()
+
+print(json.dumps(userDB, cls=MyEncoder, indent=4))
 
 with open("stackoverflow_scrapper/out/questions.json", "w+") as f:
     questionCollection = json.dumps(questions, cls=MyEncoder, indent=4)
@@ -118,3 +129,7 @@ with open("stackoverflow_scrapper/out/questions.json", "w+") as f:
 with open("stackoverflow_scrapper/out/answers.json", "w+") as f:
     answerCollection = json.dumps(answers, cls=MyEncoder, indent=4)
     f.write(answerCollection)
+
+with open("stackoverflow_scrapper/out/users.json", "w+") as f:
+    userCollection = json.dumps(users, cls=MyEncoder, indent=4)
+    f.write(userCollection)

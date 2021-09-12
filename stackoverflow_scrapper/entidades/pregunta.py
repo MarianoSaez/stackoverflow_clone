@@ -1,5 +1,6 @@
 import json
 from .respuesta import Respuesta
+from .usuario import Usuario
 from bs4 import BeautifulSoup
 from utils import collectComments
 
@@ -17,10 +18,10 @@ class Pregunta:
         self.votes = votes
         self.tags = tags
         self.respondida = respondida
-        
         self.respuestas = respuestas
         self.comentarios = comentarios
         self.usuario = usuario
+        self.usuario_id = None
 
     @property
     def titulo(self):
@@ -137,6 +138,13 @@ class Pregunta:
     def jsonize(self):
         return json.dumps(self.__dict__)
 
+    def useUserDB(self, DB, name):
+        if name not in DB:
+            DB[name] = Usuario(name)
+        DB[name].preguntas.append({
+            "titulo" : self.titulo,
+            "_id" : self._id,
+        })
 
 if __name__ == "__main__":
     p = Pregunta(0,0,0,0,0,0,0,0,0,0,0)

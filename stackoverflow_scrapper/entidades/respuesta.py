@@ -1,3 +1,6 @@
+from .usuario import Usuario
+
+
 class Respuesta:
     _id = 0
     def __init__(self, fecha, descripcion, votes=0,
@@ -7,10 +10,9 @@ class Respuesta:
         self.fecha = fecha
         self.descripcion = descripcion
         self.votes = votes
-        # self.tags = tags [NO TIENEN ESTE ATRIBUTO - COMPARTEN LAS DE PREG]
-
         self.comentarios = comentarios
         self.usuario = usuario
+        self.usuario_id = None
 
     @property
     def fecha(self):
@@ -58,6 +60,16 @@ class Respuesta:
 
     def __repr__(self):
         return str(self.__dict__)
+
+    def useUserDB(self, DB, name, titulo, pregunta_id):
+        if name not in DB:
+            DB[name] = Usuario(name)
+        DB[name].respuestas.append({
+            "titulo" : titulo,
+            "pregunta_id" : pregunta_id,
+            "respuesta_id" : self._id,
+        })
+
 
     def jsonize(self):
         return json.dumps(self.__dict__)

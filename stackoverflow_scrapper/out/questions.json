@@ -6,9 +6,9 @@
         "_Pregunta__descripcion": "\n                    \n            \n        \n            \n                    \n                        \n                    \n                \n                    \n                        This question's answers are a community effort. Edit existing answers to improve this post. It is not currently accepting new answers or interactions.\n                        \n                    \n                \n            \n        \n\n\n    \n\nHaving spent a decent amount of time watching both the r and pandas tags on SO, the impression that I get is that pandas questions are less likely to contain reproducible data. This is something that the R community has been pretty good about encouraging, and thanks to guides like this, newcomers are able to get some help on putting together these examples. People who are able to read these guides and come back with reproducible data will often have much better luck getting answers to their questions.\n\nHow can we create good reproducible examples for pandas questions? Simple dataframes can be put together, e.g.:\n\nimport pandas as pd\ndf = pd.DataFrame({'user': ['Bob', 'Jane', 'Alice'], \n                   'income': [40000, 50000, 42000]})\n\n\nBut many example datasets need more complicated structure, e.g.:\n\n\ndatetime indices or data\nMultiple categorical variables (is there an equivalent to R's expand.grid() function, which produces all possible combinations of some given variables?)\nMultiIndex or Panel data\n\n\nFor datasets that are hard to mock up using a few lines of code, is there an equivalent to R's dput() that allows you to generate copy-pasteable code to regenerate your datastructure?\n    ",
         "_Pregunta__votes": 220,
         "_Pregunta__tags": [
-            "pandas",
+            "r",
             "python",
-            "r"
+            "pandas"
         ],
         "_Pregunta__respuesta_aceptada": {
             "_id": 0,
@@ -20,34 +20,40 @@
                     "_id": 0,
                     "_Comentario__descripcion": "+1 for the pd.read_clipboard(sep='\\s\\s+') tip. When I post SO questions that need a special but easily shared dataframe, like this one I build it in excel, copy it to my clipboard, then instruct SOers to do the same. Saves so much time!",
                     "_Comentario__fecha": "2016-04-13 17:32:12Z, License: CC BY-SA 3.0",
-                    "_Comentario__usuario": "zelusp"
+                    "_Comentario__usuario": "zelusp",
+                    "usuario_id": null
                 },
                 {
                     "_id": 1,
                     "_Comentario__descripcion": "the pd.read_clipboard(sep='\\s\\s+') suggestion does not seem to work if you're using Python on a remote server, which is where a lot of large data sets live.",
                     "_Comentario__fecha": "2016-12-09 17:50:15Z, License: CC BY-SA 3.0",
-                    "_Comentario__usuario": "user5359531"
+                    "_Comentario__usuario": "user5359531",
+                    "usuario_id": null
                 },
                 {
                     "_id": 2,
                     "_Comentario__descripcion": "Why pd.read_clipboard(sep='\\s\\s+'), and not a simpler pd.read_clipboard() (with the default \u2018s+\u2019)? The first need at least 2 whitespace characters, which may cause problems if there is only 1 (e. g. see such in the @JohnE 's answer).",
                     "_Comentario__fecha": "2018-12-26 22:32:33Z, License: CC BY-SA 4.0",
-                    "_Comentario__usuario": "MarianD"
+                    "_Comentario__usuario": "MarianD",
+                    "usuario_id": null
                 },
                 {
                     "_id": 3,
                     "_Comentario__descripcion": "@MarianD the reason that \\s\\s+ is so popular is that there is often one e.g. in a column name, but multiple is rarer, and pandas output nicely puts in at least two between columns. Since this is just for toy/small datasets it's pretty powerful/majority of cases. Note: tabs separated would be a different story, though stackoverflow replaces tabs with spaces, but if you have a tsv then just use \\t.",
                     "_Comentario__fecha": "2018-12-27 20:45:57Z, License: CC BY-SA 4.0",
-                    "_Comentario__usuario": "Andy Hayden"
+                    "_Comentario__usuario": "Andy Hayden",
+                    "usuario_id": null
                 },
                 {
                     "_id": 4,
                     "_Comentario__descripcion": "Ugh, i always use pd.read_clipboard(), when their are spaces, i do: pd.read_clipboard(sep='\\s+{2,}', engine='python') :P",
                     "_Comentario__fecha": "2019-06-10 11:26:36Z, License: CC BY-SA 4.0",
-                    "_Comentario__usuario": "U12-Forward"
+                    "_Comentario__usuario": "U12-Forward",
+                    "usuario_id": null
                 }
             ],
-            "_Respuesta__usuario": "Andy Hayden"
+            "_Respuesta__usuario": "Andy Hayden",
+            "usuario_id": null
         },
         "_Pregunta__respondida": true,
         "_Pregunta__respuestas": [
@@ -62,16 +68,19 @@
                 "_id": 14,
                 "_Comentario__descripcion": "If you copy the output of printing, most of the time answerers can use read_clipboard()... except for MultiIndex :s. Saying that, dict is good addition",
                 "_Comentario__fecha": "2013-11-20 23:39:54Z, License: CC BY-SA 3.0",
-                "_Comentario__usuario": "Andy Hayden"
+                "_Comentario__usuario": "Andy Hayden",
+                "usuario_id": null
             },
             {
                 "_id": 15,
                 "_Comentario__descripcion": "In addition to what Andy said, I think copy-pasting df.head(N).to_dict(), where N is some reasonable number is a good way to go. Bonus +1's for adding pretty-line breaks to the output. For timestamps, you'll typically just need to add from pandas import Timestamp to the top of the code.",
                 "_Comentario__fecha": "2013-11-20 23:51:38Z, License: CC BY-SA 3.0",
-                "_Comentario__usuario": "Paul H"
+                "_Comentario__usuario": "Paul H",
+                "usuario_id": null
             }
         ],
-        "_Pregunta__usuario": "Marius"
+        "_Pregunta__usuario": "Marius",
+        "usuario_id": null
     },
     {
         "_id": 1,
@@ -80,11 +89,11 @@
         "_Pregunta__descripcion": "\n                \nI'm trying to make a function that will compare multiple variables to an integer and output a string of three letters. I was wondering if there was a way to translate this into Python. So say:\n\nx = 0\ny = 1\nz = 3\nmylist = []\n\nif x or y or z == 0 :\n    mylist.append(\"c\")\nif x or y or z == 1 :\n    mylist.append(\"d\")\nif x or y or z == 2 :\n    mylist.append(\"e\")\nif x or y or z == 3 : \n    mylist.append(\"f\")\n\n\nwhich would return a list of:\n\n[\"c\", \"d\", \"f\"]\n\n\nIs something like this possible?\n    ",
         "_Pregunta__votes": 744,
         "_Pregunta__tags": [
+            "if-statement",
             "comparison",
             "match",
-            "python",
             "boolean-logic",
-            "if-statement"
+            "python"
         ],
         "_Pregunta__respuesta_aceptada": {
             "_id": 6,
@@ -96,34 +105,40 @@
                     "_id": 16,
                     "_Comentario__descripcion": "I wouldn't be so quick to go for the set version.  Tuple's are very cheap to create and iterate over.  On my machine at least, tuples are faster than sets so long as the size of the tuple is around 4-8 elements.  If you have to scan more than that, use a set, but if you are looking for an item out of 2-4 possibilities, a tuple is still faster!  If you can arrange for the most likely case to be first in the tuple, the win is even bigger: (my test: timeit.timeit('0 in {seq}'.format(seq=tuple(range(9, -1, -1)))))",
                     "_Comentario__fecha": "2013-10-24 15:27:12Z, License: CC BY-SA 3.0",
-                    "_Comentario__usuario": "SingleNegationElimination"
+                    "_Comentario__usuario": "SingleNegationElimination",
+                    "usuario_id": null
                 },
                 {
                     "_id": 17,
                     "_Comentario__descripcion": "@dequestarmappartialsetattr: In Python 3.3 and up, the set is stored as a constant, bypassing the creation time altogether, eliminating the creation time. Tuples can be cheap to create as Python caches a bundle of them to avoid memory churn, making that the biggest difference with sets here.",
                     "_Comentario__fecha": "2013-10-24 15:29:51Z, License: CC BY-SA 3.0",
-                    "_Comentario__usuario": "Martijn Pieters\u2666"
+                    "_Comentario__usuario": "Martijn Pieters\u2666",
+                    "usuario_id": null
                 },
                 {
                     "_id": 18,
                     "_Comentario__descripcion": "@dequestarmappartialsetattr: If you time just the membership test, for integers sets and tuples are equally fast for the ideal scenario; matching the first element. After that tuples lose out to sets.",
                     "_Comentario__fecha": "2013-10-24 15:37:11Z, License: CC BY-SA 3.0",
-                    "_Comentario__usuario": "Martijn Pieters\u2666"
+                    "_Comentario__usuario": "Martijn Pieters\u2666",
+                    "usuario_id": null
                 },
                 {
                     "_id": 19,
                     "_Comentario__descripcion": "@MartijnPieters: Using the set literal notation for this test isn't a savings unless the contents of the set literal are also literals, right? if 1 in {x, y, z}: can't cache the set, because x, y and z could change, so either solution needs to build a tuple or set from scratch, and I suspect whatever lookup savings you might get when checking for membership would be swamped by greater set creation time.",
                     "_Comentario__fecha": "2016-09-04 00:37:09Z, License: CC BY-SA 3.0",
-                    "_Comentario__usuario": "ShadowRanger"
+                    "_Comentario__usuario": "ShadowRanger",
+                    "usuario_id": null
                 },
                 {
                     "_id": 20,
                     "_Comentario__descripcion": "@ShadowRanger: yes, peephole optimisation (be it for in [...] or in {...}) only works if the contents of the list or set are immutable literals too.",
                     "_Comentario__fecha": "2016-09-04 07:58:07Z, License: CC BY-SA 3.0",
-                    "_Comentario__usuario": "Martijn Pieters\u2666"
+                    "_Comentario__usuario": "Martijn Pieters\u2666",
+                    "usuario_id": null
                 }
             ],
-            "_Respuesta__usuario": "Martijn Pieters"
+            "_Respuesta__usuario": "Martijn Pieters",
+            "usuario_id": null
         },
         "_Pregunta__respondida": true,
         "_Pregunta__respuestas": [
@@ -160,34 +175,40 @@
                 "_id": 42,
                 "_Comentario__descripcion": "use 1 in (tuple)",
                 "_Comentario__fecha": "2017-12-05 21:49:51Z, License: CC BY-SA 3.0",
-                "_Comentario__usuario": "NA"
+                "_Comentario__usuario": "NA",
+                "usuario_id": null
             },
             {
                 "_id": 43,
                 "_Comentario__descripcion": "When you want to evaluate a list of statements in a any/all manner you can use any/all functions. For example: all([1, 2, 3, 4, False]) will return False all([True, 1, 2, 3]) will return True any([False, 0, 0, False]) will return False any([False, 0, True, False]) will return True",
                 "_Comentario__fecha": "2018-06-04 16:17:30Z, License: CC BY-SA 4.0",
-                "_Comentario__usuario": "eddd"
+                "_Comentario__usuario": "eddd",
+                "usuario_id": null
             },
             {
                 "_id": 44,
                 "_Comentario__descripcion": "This question is a very popular duplicate target, but I think it's suboptimal for that purpose. Most people try to do something like if x == 0 or 1:, which is of course similar to if x or y == 0:, but might be a little confusing for newbies nonetheless. Given the sheer volume of \"Why isn't my x == 0 or 1 working?\" questions, I would much rather use this question as our canonical duplicate target for these questions.",
                 "_Comentario__fecha": "2019-04-10 10:06:05Z, License: CC BY-SA 4.0",
-                "_Comentario__usuario": "Aran-Fey"
+                "_Comentario__usuario": "Aran-Fey",
+                "usuario_id": null
             },
             {
                 "_id": 45,
                 "_Comentario__descripcion": "Take extra care when comparing to \"falsey\" values like 0, 0.0 or False. You can easily write wrong code which gives the \"right\" answer.",
                 "_Comentario__fecha": "2019-04-10 10:09:25Z, License: CC BY-SA 4.0",
-                "_Comentario__usuario": "smci"
+                "_Comentario__usuario": "smci",
+                "usuario_id": null
             },
             {
                 "_id": 46,
                 "_Comentario__descripcion": "For the opposite, see Comparing a string to multiple items in Python",
                 "_Comentario__fecha": "2020-01-08 10:27:08Z, License: CC BY-SA 4.0",
-                "_Comentario__usuario": "tripleee"
+                "_Comentario__usuario": "tripleee",
+                "usuario_id": null
             }
         ],
-        "_Pregunta__usuario": "user1877442"
+        "_Pregunta__usuario": "user1877442",
+        "usuario_id": null
     },
     {
         "_id": 2,
@@ -208,34 +229,40 @@
                     "_id": 47,
                     "_Comentario__descripcion": "Its fun reading it with many examples, kudos. Underrated lesson: \"Don't underestimate the ingenuity of fools!\"",
                     "_Comentario__fecha": "2017-01-03 02:02:47Z, License: CC BY-SA 3.0",
-                    "_Comentario__usuario": "vpibano"
+                    "_Comentario__usuario": "vpibano",
+                    "usuario_id": null
                 },
                 {
                     "_id": 48,
                     "_Comentario__descripcion": "Not only would I have upvoted both the Q&A anyway, as they're great, but you sealed the deal with \"dickety six\". Well done, @Kevin.",
                     "_Comentario__fecha": "2018-02-02 15:58:58Z, License: CC BY-SA 3.0",
-                    "_Comentario__usuario": "erekalper"
+                    "_Comentario__usuario": "erekalper",
+                    "usuario_id": null
                 },
                 {
                     "_id": 49,
                     "_Comentario__descripcion": "Don't estimate the ingenuity of fools... and clever attackers. A DOS attack would be easiest for this sort of thing, but others may be possible.",
                     "_Comentario__fecha": "2019-04-28 02:53:37Z, License: CC BY-SA 4.0",
-                    "_Comentario__usuario": "Solomon Ucko"
+                    "_Comentario__usuario": "Solomon Ucko",
+                    "usuario_id": null
                 },
                 {
                     "_id": 50,
                     "_Comentario__descripcion": "@JArunMani I don't think it would be poor style, but might be a little less readable. You will indeed have only one input per loop and the loop will become very short, but the condition might become pretty long...",
                     "_Comentario__fecha": "2020-05-09 08:40:15Z, License: CC BY-SA 4.0",
-                    "_Comentario__usuario": "Tomerikoo"
+                    "_Comentario__usuario": "Tomerikoo",
+                    "usuario_id": null
                 },
                 {
                     "_id": 51,
                     "_Comentario__descripcion": "@laundmo,certainly I release the code blocks that I wrote into the public domain. Feel free to use them in any context, without my explicit permission or knowledge. Regarding the non-code-block segments, If you want to paste my entire answer into a \"Learn Python\" book you're writing, let's talk royalties ;-)",
                     "_Comentario__fecha": "2020-07-24 13:50:12Z, License: CC BY-SA 4.0",
-                    "_Comentario__usuario": "Kevin"
+                    "_Comentario__usuario": "Kevin",
+                    "usuario_id": null
                 }
             ],
-            "_Respuesta__usuario": "ANON"
+            "_Respuesta__usuario": "ANON",
+            "usuario_id": null
         },
         "_Pregunta__respondida": true,
         "_Pregunta__respuestas": [
@@ -267,10 +294,12 @@
                 "_id": 76,
                 "_Comentario__descripcion": "I think there's a bug in one of your comments, it should read #note: Python 2.7 users should damn-well get their act together and update :-)",
                 "_Comentario__fecha": "2020-09-08 02:05:21Z, License: CC BY-SA 4.0",
-                "_Comentario__usuario": "paxdiablo"
+                "_Comentario__usuario": "paxdiablo",
+                "usuario_id": null
             }
         ],
-        "_Pregunta__usuario": "ANON"
+        "_Pregunta__usuario": "ANON",
+        "usuario_id": null
     },
     {
         "_id": 3,
@@ -288,7 +317,8 @@
             "_Respuesta__descripcion": "\nYou can use dictionaries to accomplish this. Dictionaries are stores of keys and values. \n\n>>> dct = {'x': 1, 'y': 2, 'z': 3}\n>>> dct\n{'y': 2, 'x': 1, 'z': 3}\n>>> dct[\"y\"]\n2\n\n\nYou can use variable key names to achieve the effect of variable variables without the security risk.\n\n>>> x = \"spam\"\n>>> z = {x: \"eggs\"}\n>>> z[\"spam\"]\n'eggs'\n\n\nFor cases where you're thinking of doing something like\n\nvar1 = 'foo'\nvar2 = 'bar'\nvar3 = 'baz'\n...\n\n\na list may be more appropriate than a dict. A list represents an ordered sequence of objects, with integer indices:\n\nlst = ['foo', 'bar', 'baz']\nprint(lst[1])           # prints bar, because indices start at 0\nlst.append('potatoes')  # lst is now ['foo', 'bar', 'baz', 'potatoes']\n\n\nFor ordered sequences, lists are more convenient than dicts with integer keys, because lists support iteration in index order, slicing, append, and other operations that would require awkward key management with a dict.\n    ",
             "_Respuesta__votes": 365,
             "comentarios": [],
-            "_Respuesta__usuario": "ANON"
+            "_Respuesta__usuario": "ANON",
+            "usuario_id": null
         },
         "_Pregunta__respondida": true,
         "_Pregunta__respuestas": [
@@ -314,34 +344,40 @@
                 "_id": 83,
                 "_Comentario__descripcion": "it's the maintainance and debugging aspects that cause the horror. Imagine trying to find out where variable 'foo' changed when there's no place in your code where you actually change 'foo'. Imagine further that it's someone else's code that you have to maintain... OK, you can go to your happy place now.",
                 "_Comentario__fecha": "2009-09-03 14:28:55Z, License: CC BY-SA 2.5",
-                "_Comentario__usuario": "glenn jackman"
+                "_Comentario__usuario": "glenn jackman",
+                "usuario_id": null
             },
             {
                 "_id": 84,
                 "_Comentario__descripcion": "A further pitfall that hasn't been mentioned so far is if such a dynamically-created variable has the same name as a variable used in your logic. You essentially open up your software as a hostage to the input it is given.",
                 "_Comentario__fecha": "2014-12-19 10:50:29Z, License: CC BY-SA 3.0",
-                "_Comentario__usuario": "holdenweb"
+                "_Comentario__usuario": "holdenweb",
+                "usuario_id": null
             },
             {
                 "_id": 85,
                 "_Comentario__descripcion": "All the responses here assume you have access to the base variables you want to access dynamically by name, which is not always the case. I think the most general approach to reproduce the example behaviour in PHP is to use eval() like this:  var_name = 'foo'; bar = 5; output = eval(var_name)",
                 "_Comentario__fecha": "2019-10-23 17:18:58Z, License: CC BY-SA 4.0",
-                "_Comentario__usuario": "Luis Vazquez"
+                "_Comentario__usuario": "Luis Vazquez",
+                "usuario_id": null
             },
             {
                 "_id": 86,
                 "_Comentario__descripcion": "You can modify your global and local variables by accessing the underlying dictionaries for them; it's a horrible idea from a maintenance perspective ... but it can be done via globals().update() and locals().update() (or by saving the dict reference from either of those and using it like any other dictionary).  NOT RECOMMENDED ... but you should know that it's possible.",
                 "_Comentario__fecha": "2020-03-19 09:13:59Z, License: CC BY-SA 4.0",
-                "_Comentario__usuario": "Jim Dennis"
+                "_Comentario__usuario": "Jim Dennis",
+                "usuario_id": null
             },
             {
                 "_id": 87,
                 "_Comentario__descripcion": "@JimDennis actually, no it can't. Modifications to the dict returned by locals will not affect local namespaces in CPython. Which is another reason not to do it.",
                 "_Comentario__fecha": "2020-05-18 22:27:27Z, License: CC BY-SA 4.0",
-                "_Comentario__usuario": "juanpa.arrivillaga"
+                "_Comentario__usuario": "juanpa.arrivillaga",
+                "usuario_id": null
             }
         ],
-        "_Pregunta__usuario": "ANON"
+        "_Pregunta__usuario": "ANON",
+        "usuario_id": null
     },
     {
         "_id": 4,
@@ -350,10 +386,10 @@
         "_Pregunta__descripcion": "\n                \nI need a good explanation (references are a plus) on Python's slice notation. \n\nTo me, this notation needs a bit of picking up. \n\nIt looks extremely powerful, but I haven't quite got my head around it.\n    ",
         "_Pregunta__votes": 3958,
         "_Pregunta__tags": [
-            "iterable",
-            "python",
+            "slice",
             "list",
-            "slice"
+            "python",
+            "iterable"
         ],
         "_Pregunta__respuesta_aceptada": {
             "_id": 74,
@@ -365,34 +401,40 @@
                     "_id": 88,
                     "_Comentario__descripcion": "Slicing builtin types returns a copy but that's not universal.  Notably, slicing NumPy arrays returns a view that shares memory with the original.",
                     "_Comentario__fecha": "2013-09-23 00:13:06Z, License: CC BY-SA 3.0",
-                    "_Comentario__usuario": "Beni Cherniavsky-Paskin"
+                    "_Comentario__usuario": "Beni Cherniavsky-Paskin",
+                    "usuario_id": null
                 },
                 {
                     "_id": 89,
                     "_Comentario__descripcion": "This is a beautiful answer with the votes to prove it, but it misses one thing: you can substitute None for any of the empty spaces. For example [None:None] makes a whole copy. This is useful when you need to specify the end of the range using a variable and need to include the last item.",
                     "_Comentario__fecha": "2019-01-16 18:49:18Z, License: CC BY-SA 4.0",
-                    "_Comentario__usuario": "Mark Ransom"
+                    "_Comentario__usuario": "Mark Ransom",
+                    "usuario_id": null
                 },
                 {
                     "_id": 90,
                     "_Comentario__descripcion": "Note that contrary to usual Python slices (see above), in Pandas Dataframes both the start and the stop are included when present in the index. For further info see the Pandas indexing documentation.",
                     "_Comentario__fecha": "2019-05-29 12:54:33Z, License: CC BY-SA 4.0",
-                    "_Comentario__usuario": "vreyespue"
+                    "_Comentario__usuario": "vreyespue",
+                    "usuario_id": null
                 },
                 {
                     "_id": 91,
                     "_Comentario__descripcion": "What really annoys me is that python says that when you don't set the start and the end, they default to 0 and the length of sequence. So, in theory, when you use \"abcdef\"[::-1] it should be transformed to \"abcdef\"[0:6:-1], but these two expressions does not get the same output. I feel that something is missing in python documentation since the creation of the language.",
                     "_Comentario__fecha": "2019-06-30 14:00:10Z, License: CC BY-SA 4.0",
-                    "_Comentario__usuario": "axell-brendow"
+                    "_Comentario__usuario": "axell-brendow",
+                    "usuario_id": null
                 },
                 {
                     "_id": 92,
                     "_Comentario__descripcion": "And I know that \"abcdef\"[::-1] is transformed to \"abcdef\"[6:-7:-1], so, the best way to explain would be: let len be the length of the sequence. If step is positive, the defaults for start and end are 0 and len. Else if step is negative, the defaults for start and end are len and -len - 1.",
                     "_Comentario__fecha": "2019-06-30 14:22:35Z, License: CC BY-SA 4.0",
-                    "_Comentario__usuario": "axell-brendow"
+                    "_Comentario__usuario": "axell-brendow",
+                    "usuario_id": null
                 }
             ],
-            "_Respuesta__usuario": "Greg Hewgill"
+            "_Respuesta__usuario": "Greg Hewgill",
+            "usuario_id": null
         },
         "_Pregunta__respondida": true,
         "_Pregunta__respuestas": [
@@ -428,7 +470,8 @@
             104
         ],
         "comentarios": [],
-        "_Pregunta__usuario": "Simon"
+        "_Pregunta__usuario": "Simon",
+        "usuario_id": null
     },
     {
         "_id": 5,
@@ -437,8 +480,8 @@
         "_Pregunta__descripcion": "\n                \nAnyone tinkering with Python long enough has been bitten (or torn to pieces) by the following issue:\ndef foo(a=[]):\n    a.append(5)\n    return a\n\nPython novices would expect this function to always return a list with only one element: [5]. The result is instead very different, and very astonishing (for a novice):\n>>> foo()\n[5]\n>>> foo()\n[5, 5]\n>>> foo()\n[5, 5, 5]\n>>> foo()\n[5, 5, 5, 5]\n>>> foo()\n\nA manager of mine once had his first encounter with this feature, and called it \"a dramatic design flaw\" of the language. I replied that the behavior had an underlying explanation, and it is indeed very puzzling and unexpected if you don't understand the internals. However, I was not able to answer (to myself) the following question: what is the reason for binding the default argument at function definition, and not at function execution? I doubt the experienced behavior has a practical use (who really used static variables in C, without breeding bugs?)\nEdit:\nBaczek made an interesting example. Together with most of your comments and Utaal's in particular, I elaborated further:\n>>> def a():\n...     print(\"a executed\")\n...     return []\n... \n>>>            \n>>> def b(x=a()):\n...     x.append(5)\n...     print(x)\n... \na executed\n>>> b()\n[5]\n>>> b()\n[5, 5]\n\nTo me, it seems that the design decision was relative to where to put the scope of parameters: inside the function, or \"together\" with it?\nDoing the binding inside the function would mean that x is effectively bound to the specified default when the function is called, not defined, something that would present a deep flaw: the def line would be \"hybrid\" in the sense that part of the binding (of the function object) would happen at definition, and part (assignment of default parameters) at function invocation time.\nThe actual behavior is more consistent: everything of that line gets evaluated when that line is executed, meaning at function definition.\n    ",
         "_Pregunta__votes": 2947,
         "_Pregunta__tags": [
-            "least-astonishment",
             "language-design",
+            "least-astonishment",
             "python",
             "default-parameters"
         ],
@@ -452,34 +495,40 @@
                     "_id": 112,
                     "_Comentario__descripcion": "To anyone reading the above answer, I strongly recommend you take the time to read through the linked Effbot article. As well as all the other useful info, the part on how this language feature can be used for result caching/memoisation is very handy to know!",
                     "_Comentario__fecha": "2011-10-14 00:05:52Z, License: CC BY-SA 3.0",
-                    "_Comentario__usuario": "Cam Jackson"
+                    "_Comentario__usuario": "Cam Jackson",
+                    "usuario_id": null
                 },
                 {
                     "_id": 113,
                     "_Comentario__descripcion": "Even if it's a first-class object, one might still envision a design where the code for each default value is stored along with the object and re-evaluated each time the function is called. I'm not saying that would be better, just that functions being first-class objects does not fully preclude it.",
                     "_Comentario__fecha": "2013-01-11 10:55:25Z, License: CC BY-SA 3.0",
-                    "_Comentario__usuario": "gerrit"
+                    "_Comentario__usuario": "gerrit",
+                    "usuario_id": null
                 },
                 {
                     "_id": 114,
                     "_Comentario__descripcion": "Sorry, but anything considered \"The biggest WTF in Python\" is most definitely a design flaw.  This is a source of bugs for everyone at some point, because no one expects that behavior at first - which means it should not have been designed that way to begin with.  I don't care what hoops they had to jump through, they should have designed Python so that default arguments are non-static.",
                     "_Comentario__fecha": "2013-06-07 21:28:27Z, License: CC BY-SA 3.0",
-                    "_Comentario__usuario": "BlueRaja - Danny Pflughoeft"
+                    "_Comentario__usuario": "BlueRaja - Danny Pflughoeft",
+                    "usuario_id": null
                 },
                 {
                     "_id": 115,
                     "_Comentario__descripcion": "Whether or not it's a design flaw, your answer seems to imply that this behaviour is somehow necessary, natural and obvious given that functions are first-class objects, and that simply isn't the case. Python has closures. If you replace the default argument with an assignment on the first line of the function, it evaluates the expression each call (potentially using names declared in an enclosing scope). There is no reason at all that it wouldn't be possible or reasonable to have default arguments evaluated each time the function is called in exactly the same way.",
                     "_Comentario__fecha": "2014-01-08 22:16:13Z, License: CC BY-SA 3.0",
-                    "_Comentario__usuario": "Mark Amery"
+                    "_Comentario__usuario": "Mark Amery",
+                    "usuario_id": null
                 },
                 {
                     "_id": 116,
                     "_Comentario__descripcion": "The design doesn't directly follow from functions are objects. In your paradigm, the proposal would be to implement functions' default values as properties rather than attributes.",
                     "_Comentario__fecha": "2014-05-03 20:46:09Z, License: CC BY-SA 3.0",
-                    "_Comentario__usuario": "bukzor"
+                    "_Comentario__usuario": "bukzor",
+                    "usuario_id": null
                 }
             ],
-            "_Respuesta__usuario": "rob"
+            "_Respuesta__usuario": "rob",
+            "usuario_id": null
         },
         "_Pregunta__respondida": true,
         "_Pregunta__respuestas": [
@@ -519,34 +568,40 @@
                 "_id": 195,
                 "_Comentario__descripcion": "Complementary question - Good uses for mutable default arguments",
                 "_Comentario__fecha": "2012-02-06 20:54:07Z, License: CC BY-SA 3.0",
-                "_Comentario__usuario": "Jonathan"
+                "_Comentario__usuario": "Jonathan",
+                "usuario_id": null
             },
             {
                 "_id": 196,
                 "_Comentario__descripcion": "I have not doubt mutable arguments violate least astonishment principle for an average person, and I have seen beginners stepping there, then heroically replacing mailing lists with mailing tuples. Nevertheless mutable arguments are still in line with Python Zen (Pep 20) and falls into \"obvious for Dutch\" (understood/exploited by hard core python programmers) clause.  The recommended  workaround with doc string is the best, yet resistance to doc strings and any (written) docs is not so uncommon nowadays. Personally, I would prefer a decorator (say @fixed_defaults).",
                 "_Comentario__fecha": "2017-04-06 16:04:44Z, License: CC BY-SA 3.0",
-                "_Comentario__usuario": "Serge"
+                "_Comentario__usuario": "Serge",
+                "usuario_id": null
             },
             {
                 "_id": 197,
                 "_Comentario__descripcion": "My argument when I come across this is:  \"Why do you need to create a function that returns a mutable that could optionally be a mutable you would pass to the function?  Either it alters a mutable or creates a new one.  Why do you need to do both with one function?  And why should the interpreter be rewritten to allow you to do that without adding three lines to your code?\" Because we are talking about rewriting the way the interpreter handles function definitions and evocations here.  That's a lot to do for a barely necessary use case.",
                 "_Comentario__fecha": "2017-06-01 21:22:20Z, License: CC BY-SA 3.0",
-                "_Comentario__usuario": "Alan Leuthard"
+                "_Comentario__usuario": "Alan Leuthard",
+                "usuario_id": null
             },
             {
                 "_id": 198,
                 "_Comentario__descripcion": "\"Python novices would expect this function to always return a list with only one element: [5].\" I'm a Python novice, and I wouldn't expect this, because obviously foo([1]) will return [1, 5], not [5]. What you meant to say is that a novice would expect the function called with no parameter will always return [5].",
                 "_Comentario__fecha": "2017-07-06 16:08:22Z, License: CC BY-SA 3.0",
-                "_Comentario__usuario": "symplectomorphic"
+                "_Comentario__usuario": "symplectomorphic",
+                "usuario_id": null
             },
             {
                 "_id": 199,
                 "_Comentario__descripcion": "This question asks \"Why did this [the wrong way] get implemented so?\" It doesn't ask \"What's the right way?\", which is covered by [Why does using arg=None fix Python's mutable default argument issue?]*(stackoverflow.com/questions/10676729/\u2026). New users are almost always less interested in the former and much more in the latter, so that's sometimes a very useful link/dupe to cite.",
                 "_Comentario__fecha": "2019-04-21 08:48:07Z, License: CC BY-SA 4.0",
-                "_Comentario__usuario": "smci"
+                "_Comentario__usuario": "smci",
+                "usuario_id": null
             }
         ],
-        "_Pregunta__usuario": "Stefano Borini"
+        "_Pregunta__usuario": "Stefano Borini",
+        "usuario_id": null
     },
     {
         "_id": 6,
@@ -556,9 +611,9 @@
         "_Pregunta__votes": 794,
         "_Pregunta__tags": [
             "nested-lists",
-            "python",
             "list",
-            "mutable"
+            "mutable",
+            "python"
         ],
         "_Pregunta__respuesta_aceptada": {
             "_id": 136,
@@ -570,22 +625,26 @@
                     "_id": 200,
                     "_Comentario__descripcion": "I am surprised that no body points out  that, the answer here is misleading. [x]*3 store 3 references like [x, x, x] is only right when x is mutable. This does't work for e.g. a=[4]*3, where after a[0]=5, a=[5,4,4].",
                     "_Comentario__fecha": "2015-05-22 00:16:41Z, License: CC BY-SA 3.0",
-                    "_Comentario__usuario": "Allanqunzi"
+                    "_Comentario__usuario": "Allanqunzi",
+                    "usuario_id": null
                 },
                 {
                     "_id": 201,
                     "_Comentario__descripcion": "Technically, it's still correct. [4]*3 is essentially equivalent to x = 4; [x, x, x]. It's true, though, that this will never cause any problem since 4 is immutable. Also, your other example isn't really a different case. a = [x]*3; a[0] = 5 won't cause problems even if x is mutable, since you're not modifying x, only modifying a. I wouldn't describe my answer as misleading or incorrect - you just can't shoot yourself in the foot if you're dealing with immutable objects.",
                     "_Comentario__fecha": "2015-05-22 08:04:09Z, License: CC BY-SA 3.0",
-                    "_Comentario__usuario": "CAdaker"
+                    "_Comentario__usuario": "CAdaker",
+                    "usuario_id": null
                 },
                 {
                     "_id": 202,
                     "_Comentario__descripcion": "@Allanqunzi you are wrong. Do x = 1000; lst = [x]*2; lst[0] is lst[1] -> True. Python does not distinguish between mutable and immutable objects here whatsoever.",
                     "_Comentario__fecha": "2016-04-17 18:08:26Z, License: CC BY-SA 3.0",
-                    "_Comentario__usuario": "timgeb"
+                    "_Comentario__usuario": "timgeb",
+                    "usuario_id": null
                 }
             ],
-            "_Respuesta__usuario": "CAdaker"
+            "_Respuesta__usuario": "CAdaker",
+            "usuario_id": null
         },
         "_Pregunta__respondida": true,
         "_Pregunta__respuestas": [
@@ -608,7 +667,8 @@
             153
         ],
         "comentarios": [],
-        "_Pregunta__usuario": "Charles Anderson"
+        "_Pregunta__usuario": "Charles Anderson",
+        "usuario_id": null
     },
     {
         "_id": 7,
@@ -619,9 +679,9 @@
         "_Pregunta__tags": [
             "list",
             "reference",
-            "copy",
             "clone",
-            "python"
+            "python",
+            "copy"
         ],
         "_Pregunta__respuesta_aceptada": {
             "_id": 154,
@@ -633,34 +693,40 @@
                     "_id": 215,
                     "_Comentario__descripcion": "As @Georgy points out correctly in the answer below, any changes to the new_list values will also change the values in my_list. So actually the copy.deepcopy() method is the only real copy without reference to the original list and it's values.",
                     "_Comentario__fecha": "2020-12-21 17:27:56Z, License: CC BY-SA 4.0",
-                    "_Comentario__usuario": "moojen"
+                    "_Comentario__usuario": "moojen",
+                    "usuario_id": null
                 },
                 {
                     "_id": 216,
                     "_Comentario__descripcion": "@Erri I think you made a mistake. I didn't post any answers or comments here :)",
                     "_Comentario__fecha": "2020-12-21 17:33:34Z, License: CC BY-SA 4.0",
-                    "_Comentario__usuario": "Georgy"
+                    "_Comentario__usuario": "Georgy",
+                    "usuario_id": null
                 },
                 {
                     "_id": 217,
                     "_Comentario__descripcion": "You're right, it was edited by you, but posted by @cryo Sorry for the mixup!",
                     "_Comentario__fecha": "2020-12-21 17:52:36Z, License: CC BY-SA 4.0",
-                    "_Comentario__usuario": "moojen"
+                    "_Comentario__usuario": "moojen",
+                    "usuario_id": null
                 },
                 {
                     "_id": 218,
                     "_Comentario__descripcion": "Which one is fastest?",
                     "_Comentario__fecha": "2021-05-04 18:10:13Z, License: CC BY-SA 4.0",
-                    "_Comentario__usuario": "zzz777"
+                    "_Comentario__usuario": "zzz777",
+                    "usuario_id": null
                 },
                 {
                     "_id": 219,
                     "_Comentario__descripcion": "I was having the same issue with a list of json (each element of a list was a json) and the only one that worked was new_list = copy.deepcopy(old_list) ; I'm writing this since anyone can encounter the same issue. Thanks!",
                     "_Comentario__fecha": "2021-05-11 15:23:44Z, License: CC BY-SA 4.0",
-                    "_Comentario__usuario": "Tom"
+                    "_Comentario__usuario": "Tom",
+                    "usuario_id": null
                 }
             ],
-            "_Respuesta__usuario": "Felix Kling"
+            "_Respuesta__usuario": "Felix Kling",
+            "usuario_id": null
         },
         "_Pregunta__respondida": true,
         "_Pregunta__respuestas": [
@@ -688,7 +754,8 @@
             176
         ],
         "comentarios": [],
-        "_Pregunta__usuario": "aF."
+        "_Pregunta__usuario": "aF.",
+        "usuario_id": null
     },
     {
         "_id": 8,
@@ -697,11 +764,11 @@
         "_Pregunta__descripcion": "\n                \n\nWhat is pivot?\nHow do I pivot?\nIs this a pivot?\nLong format to wide format?\n\nI've seen a lot of questions that ask about pivot tables.  Even if they don't know that they are asking about pivot tables, they usually are.  It is virtually impossible to write a canonical question and answer that encompasses all aspects of pivoting...\n... But I'm going to give it a go.\n\nThe problem with existing questions and answers is that often the question is focused on a nuance that the OP has trouble generalizing in order to use a number of the existing good answers.  However, none of the answers attempt to give a comprehensive explanation (because it's a daunting task)\nLook a few examples from my Google Search\n\nHow to pivot a dataframe in Pandas?\n\n\nGood question and answer.  But the answer only answers the specific question with little explanation.\n\n\npandas pivot table to data frame\n\n\nIn this question, the OP is concerned with the output of the pivot.  Namely how the columns look.  OP wanted it to look like R.  This isn't very helpful for pandas users.\n\n\npandas pivoting a dataframe, duplicate rows\n\n\nAnother decent question but the answer focuses on one method, namely pd.DataFrame.pivot\n\nSo whenever someone searches for pivot they get sporadic results that are likely not going to answer their specific question.\n\nSetup\nYou may notice that I conspicuously named my columns and relevant column values to correspond with how I'm going to pivot in the answers below.\nimport numpy as np\nimport pandas as pd\nfrom numpy.core.defchararray import add\n\nnp.random.seed([3,1415])\nn = 20\n\ncols = np.array(['key', 'row', 'item', 'col'])\narr1 = (np.random.randint(5, size=(n, 4)) // [2, 1, 2, 1]).astype(str)\n\ndf = pd.DataFrame(\n    add(cols, arr1), columns=cols\n).join(\n    pd.DataFrame(np.random.rand(n, 2).round(2)).add_prefix('val')\n)\nprint(df)\n\n     key   row   item   col  val0  val1\n0   key0  row3  item1  col3  0.81  0.04\n1   key1  row2  item1  col2  0.44  0.07\n2   key1  row0  item1  col0  0.77  0.01\n3   key0  row4  item0  col2  0.15  0.59\n4   key1  row0  item2  col1  0.81  0.64\n5   key1  row2  item2  col4  0.13  0.88\n6   key2  row4  item1  col3  0.88  0.39\n7   key1  row4  item1  col1  0.10  0.07\n8   key1  row0  item2  col4  0.65  0.02\n9   key1  row2  item0  col2  0.35  0.61\n10  key2  row0  item2  col1  0.40  0.85\n11  key2  row4  item1  col2  0.64  0.25\n12  key0  row2  item2  col3  0.50  0.44\n13  key0  row4  item1  col4  0.24  0.46\n14  key1  row3  item2  col3  0.28  0.11\n15  key0  row3  item1  col1  0.31  0.23\n16  key0  row0  item2  col3  0.86  0.01\n17  key0  row4  item0  col3  0.64  0.21\n18  key2  row2  item2  col0  0.13  0.45\n19  key0  row2  item0  col4  0.37  0.70\n\nQuestion(s)\n\nWhy do I get ValueError: Index contains duplicate entries, cannot reshape\n\nHow do I pivot df such that the col values are columns, row values are the index, and mean of val0 are the values?\n col   col0   col1   col2   col3  col4\n row\n row0  0.77  0.605    NaN  0.860  0.65\n row2  0.13    NaN  0.395  0.500  0.25\n row3   NaN  0.310    NaN  0.545   NaN\n row4   NaN  0.100  0.395  0.760  0.24\n\n\nHow do I pivot df such that the col values are columns, row values are the index, mean of val0 are the values, and missing values are 0?\n col   col0   col1   col2   col3  col4\n row\n row0  0.77  0.605  0.000  0.860  0.65\n row2  0.13  0.000  0.395  0.500  0.25\n row3  0.00  0.310  0.000  0.545  0.00\n row4  0.00  0.100  0.395  0.760  0.24\n\n\nCan I get something other than mean, like maybe sum?\n col   col0  col1  col2  col3  col4\n row\n row0  0.77  1.21  0.00  0.86  0.65\n row2  0.13  0.00  0.79  0.50  0.50\n row3  0.00  0.31  0.00  1.09  0.00\n row4  0.00  0.10  0.79  1.52  0.24\n\n\nCan I do more that one aggregation at a time?\n        sum                          mean\n col   col0  col1  col2  col3  col4  col0   col1   col2   col3  col4\n row\n row0  0.77  1.21  0.00  0.86  0.65  0.77  0.605  0.000  0.860  0.65\n row2  0.13  0.00  0.79  0.50  0.50  0.13  0.000  0.395  0.500  0.25\n row3  0.00  0.31  0.00  1.09  0.00  0.00  0.310  0.000  0.545  0.00\n row4  0.00  0.10  0.79  1.52  0.24  0.00  0.100  0.395  0.760  0.24\n\n\nCan I aggregate over multiple value columns?\n       val0                             val1\n col   col0   col1   col2   col3  col4  col0   col1  col2   col3  col4\n row\n row0  0.77  0.605  0.000  0.860  0.65  0.01  0.745  0.00  0.010  0.02\n row2  0.13  0.000  0.395  0.500  0.25  0.45  0.000  0.34  0.440  0.79\n row3  0.00  0.310  0.000  0.545  0.00  0.00  0.230  0.00  0.075  0.00\n row4  0.00  0.100  0.395  0.760  0.24  0.00  0.070  0.42  0.300  0.46\n\n\nCan Subdivide by multiple columns?\n item item0             item1                         item2\n col   col2  col3  col4  col0  col1  col2  col3  col4  col0   col1  col3  col4\n row\n row0  0.00  0.00  0.00  0.77  0.00  0.00  0.00  0.00  0.00  0.605  0.86  0.65\n row2  0.35  0.00  0.37  0.00  0.00  0.44  0.00  0.00  0.13  0.000  0.50  0.13\n row3  0.00  0.00  0.00  0.00  0.31  0.00  0.81  0.00  0.00  0.000  0.28  0.00\n row4  0.15  0.64  0.00  0.00  0.10  0.64  0.88  0.24  0.00  0.000  0.00  0.00\n\n\nOr\n item      item0             item1                         item2\n col        col2  col3  col4  col0  col1  col2  col3  col4  col0  col1  col3  col4\n key  row\n key0 row0  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.86  0.00\n      row2  0.00  0.00  0.37  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.50  0.00\n      row3  0.00  0.00  0.00  0.00  0.31  0.00  0.81  0.00  0.00  0.00  0.00  0.00\n      row4  0.15  0.64  0.00  0.00  0.00  0.00  0.00  0.24  0.00  0.00  0.00  0.00\n key1 row0  0.00  0.00  0.00  0.77  0.00  0.00  0.00  0.00  0.00  0.81  0.00  0.65\n      row2  0.35  0.00  0.00  0.00  0.00  0.44  0.00  0.00  0.00  0.00  0.00  0.13\n      row3  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.28  0.00\n      row4  0.00  0.00  0.00  0.00  0.10  0.00  0.00  0.00  0.00  0.00  0.00  0.00\n key2 row0  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.40  0.00  0.00\n      row2  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.00  0.13  0.00  0.00  0.00\n      row4  0.00  0.00  0.00  0.00  0.00  0.64  0.88  0.00  0.00  0.00  0.00  0.00\n\n\nCan I aggregate the frequency in which the column and rows occur together, aka \"cross tabulation\"?\n col   col0  col1  col2  col3  col4\n row\n row0     1     2     0     1     1\n row2     1     0     2     1     2\n row3     0     1     0     2     0\n row4     0     1     2     2     1\n\n\nHow do I convert a DataFrame from long to wide by pivoting on ONLY two columns? Given,\nnp.random.seed([3, 1415])\ndf2 = pd.DataFrame({'A': list('aaaabbbc'), 'B': np.random.choice(15, 8)})\ndf2\n   A   B\n0  a   0\n1  a  11\n2  a   2\n3  a  11\n4  b  10\n5  b  10\n6  b  14\n7  c   7\n\nThe expected should look something like\n      a     b    c\n0   0.0  10.0  7.0\n1  11.0  10.0  NaN\n2   2.0  14.0  NaN\n3  11.0   NaN  NaN\n\n\nHow do I flatten the multiple index to single index after pivot?\nFrom\n   1  2\n   1  1  2\na  2  1  1\nb  2  1  0\nc  1  0  0\n\nTo\n   1|1  2|1  2|2\na    2    1    1\nb    2    1    0\nc    1    0    0\n\n\n\n    ",
         "_Pregunta__votes": 474,
         "_Pregunta__tags": [
+            "pivot",
             "pandas",
             "pandas-groupby",
-            "group-by",
-            "pivot",
-            "python"
+            "python",
+            "group-by"
         ],
         "_Pregunta__respuesta_aceptada": {
             "_id": 177,
@@ -713,34 +780,40 @@
                     "_id": 243,
                     "_Comentario__descripcion": "Could you please consider extending official docs?",
                     "_Comentario__fecha": "2017-12-15 10:31:13Z, License: CC BY-SA 3.0",
-                    "_Comentario__usuario": "MaxU"
+                    "_Comentario__usuario": "MaxU",
+                    "usuario_id": null
                 },
                 {
                     "_id": 244,
                     "_Comentario__descripcion": "what happened with the answer to Question #10? I get KeyError: 'A'. Is there more to the answer?",
                     "_Comentario__fecha": "2019-09-27 18:06:51Z, License: CC BY-SA 4.0",
-                    "_Comentario__usuario": "Monica Heddneck"
+                    "_Comentario__usuario": "Monica Heddneck",
+                    "usuario_id": null
                 },
                 {
                     "_id": 245,
                     "_Comentario__descripcion": "@MonicaHeddneck I'll review it again and update if necessary.  However, 'A' is assuming there is a column 'A' in your dataframe to group by.",
                     "_Comentario__fecha": "2019-09-27 20:19:45Z, License: CC BY-SA 4.0",
-                    "_Comentario__usuario": "piRSquared"
+                    "_Comentario__usuario": "piRSquared",
+                    "usuario_id": null
                 },
                 {
                     "_id": 246,
                     "_Comentario__descripcion": "it is not necessary to insert the column in question 10, it can be passed directly as an argument in the pivot table",
                     "_Comentario__fecha": "2020-04-01 18:03:56Z, License: CC BY-SA 4.0",
-                    "_Comentario__usuario": "ansev"
+                    "_Comentario__usuario": "ansev",
+                    "usuario_id": null
                 },
                 {
                     "_id": 247,
                     "_Comentario__descripcion": "@MonicaHeddneck I believe the references to df should be changed to df2. If you were following along like I was df is the earlier dataframe created.",
                     "_Comentario__fecha": "2020-04-14 06:16:50Z, License: CC BY-SA 4.0",
-                    "_Comentario__usuario": "CopOnTheRun"
+                    "_Comentario__usuario": "CopOnTheRun",
+                    "usuario_id": null
                 }
             ],
-            "_Respuesta__usuario": "piRSquared"
+            "_Respuesta__usuario": "piRSquared",
+            "usuario_id": null
         },
         "_Pregunta__respondida": true,
         "_Pregunta__respuestas": [
@@ -749,7 +822,8 @@
             180
         ],
         "comentarios": [],
-        "_Pregunta__usuario": "piRSquared"
+        "_Pregunta__usuario": "piRSquared",
+        "usuario_id": null
     },
     {
         "_id": 9,
@@ -758,11 +832,11 @@
         "_Pregunta__descripcion": "\n                \n\nHow can I perform a (INNER| (LEFT|RIGHT|FULL) OUTER) JOIN with pandas?\nHow do I add NaNs for missing rows after a merge?\nHow do I get rid of NaNs after merging?\nCan I merge on the index?\nHow do I merge multiple DataFrames?\nCross join with pandas\nmerge? join? concat? update? Who? What? Why?!\n\n... and more. I've seen these recurring questions asking about various facets of the pandas merge functionality. Most of the information regarding merge and its various use cases today is fragmented across dozens of badly worded, unsearchable posts. The aim here is to collate some of the more important points for posterity.\nThis Q&A is meant to be the next installment in a series of helpful user guides on common pandas idioms (see this post on pivoting, and this post on concatenation, which I will be touching on, later).\nPlease note that this post is not meant to be a replacement for the documentation, so please read that as well! Some of the examples are taken from there.\n\nTable of Contents\nFor ease of access.\n\nMerging basics - basic types of joins (read this first)\n\nIndex-based joins\n\nGeneralizing to multiple DataFrames\n\nCross join\n\n\n    ",
         "_Pregunta__votes": 622,
         "_Pregunta__tags": [
-            "merge",
-            "python",
             "pandas",
+            "merge",
+            "join",
             "concatenation",
-            "join"
+            "python"
         ],
         "_Pregunta__respuesta_aceptada": {
             "_id": 181,
@@ -774,16 +848,19 @@
                     "_id": 254,
                     "_Comentario__descripcion": "If anyone is confused by the table of contents at the end of each post, I split up this massive answer into 4 separate ones, 3 on this question and 1 on another. The way it was setup previously made it harder to reference folks to specific topics. This allows you to bookmark separate topics easily now!",
                     "_Comentario__fecha": "2020-12-17 10:17:28Z, License: CC BY-SA 4.0",
-                    "_Comentario__usuario": "cs95"
+                    "_Comentario__usuario": "cs95",
+                    "usuario_id": null
                 },
                 {
                     "_id": 255,
                     "_Comentario__descripcion": "This is an awesome resource! The only question I still have is why call it merge instead of join, and join instead of merge?",
                     "_Comentario__fecha": "2021-04-08 22:31:14Z, License: CC BY-SA 4.0",
-                    "_Comentario__usuario": "ThatNewGuy"
+                    "_Comentario__usuario": "ThatNewGuy",
+                    "usuario_id": null
                 }
             ],
-            "_Respuesta__usuario": "cs95"
+            "_Respuesta__usuario": "cs95",
+            "usuario_id": null
         },
         "_Pregunta__respondida": true,
         "_Pregunta__respuestas": [
@@ -795,7 +872,8 @@
             187
         ],
         "comentarios": [],
-        "_Pregunta__usuario": "cs95"
+        "_Pregunta__usuario": "cs95",
+        "usuario_id": null
     },
     {
         "_id": 10,
@@ -804,8 +882,8 @@
         "_Pregunta__descripcion": "\n                    \n            \n        \n            \n                    \n                        \n                    \n                \n                    \n                        This question's answers are a community effort. Edit existing answers to improve this post. It is not currently accepting new answers or interactions.\n                        \n                    \n                \n            \n        \n\n\n    \n\nI'm iterating over a list of tuples in Python, and am attempting to remove them if they meet certain criteria. \n\nfor tup in somelist:\n    if determine(tup):\n         code_to_remove_tup\n\n\nWhat should I use in place of code_to_remove_tup? I can't figure out how to remove the item in this fashion.\n    ",
         "_Pregunta__votes": 933,
         "_Pregunta__tags": [
-            "python",
-            "iteration"
+            "iteration",
+            "python"
         ],
         "_Pregunta__respuesta_aceptada": {
             "_id": 188,
@@ -817,34 +895,40 @@
                     "_id": 263,
                     "_Comentario__descripcion": "Can you make it faster if you know only a few will be deleted, i.e., only delete those and leave the others in-place rather than re-writing them?",
                     "_Comentario__fecha": "2011-04-20 19:25:57Z, License: CC BY-SA 3.0",
-                    "_Comentario__usuario": "highBandWidth"
+                    "_Comentario__usuario": "highBandWidth",
+                    "usuario_id": null
                 },
                 {
                     "_id": 264,
                     "_Comentario__descripcion": "What if my list is huge and can't afford making a copy?",
                     "_Comentario__fecha": "2014-11-15 23:43:18Z, License: CC BY-SA 3.0",
-                    "_Comentario__usuario": "jpcgt"
+                    "_Comentario__usuario": "jpcgt",
+                    "usuario_id": null
                 },
                 {
                     "_id": 265,
                     "_Comentario__descripcion": "@jpcgt You should use somelist[:] = (x for x in somelist if determine(x)) this will create generator that may not create any unnecessary copies.",
                     "_Comentario__fecha": "2015-04-29 14:54:28Z, License: CC BY-SA 3.0",
-                    "_Comentario__usuario": "Rostislav Kondratenko"
+                    "_Comentario__usuario": "Rostislav Kondratenko",
+                    "usuario_id": null
                 },
                 {
                     "_id": 266,
                     "_Comentario__descripcion": "@RostislavKondratenko: list_ass_slice() function that implements somelist[:]= calls PySequence_Fast() internally. This function always returns a list i.e., @Alex Martelli's solution that already uses a list instead of a generator is most probably more efficient",
                     "_Comentario__fecha": "2015-05-07 20:48:28Z, License: CC BY-SA 3.0",
-                    "_Comentario__usuario": "jfs"
+                    "_Comentario__usuario": "jfs",
+                    "usuario_id": null
                 },
                 {
                     "_id": 267,
                     "_Comentario__descripcion": "Would you care to explain what the differences are between assigning the list comprehension to the list and list clone please? Wouldn't the original list somelist be mutated in both methods?",
                     "_Comentario__fecha": "2018-09-24 19:06:14Z, License: CC BY-SA 4.0",
-                    "_Comentario__usuario": "Bowen Liu"
+                    "_Comentario__usuario": "Bowen Liu",
+                    "usuario_id": null
                 }
             ],
-            "_Respuesta__usuario": "David Raznick"
+            "_Respuesta__usuario": "David Raznick",
+            "usuario_id": null
         },
         "_Pregunta__respondida": true,
         "_Pregunta__respuestas": [
@@ -879,10 +963,12 @@
                 "_id": 307,
                 "_Comentario__descripcion": "Most answers on this page don't really explain why removing elements while iterating over a list produces strange results, but the accepted answer in this question does, and is probably a better dupe for beginners who encounter this issue for the first time.",
                 "_Comentario__fecha": "2019-12-06 23:34:07Z, License: CC BY-SA 4.0",
-                "_Comentario__usuario": "ggorlen"
+                "_Comentario__usuario": "ggorlen",
+                "usuario_id": null
             }
         ],
-        "_Pregunta__usuario": "lfaraone"
+        "_Pregunta__usuario": "lfaraone",
+        "usuario_id": null
     },
     {
         "_id": 11,
@@ -891,10 +977,10 @@
         "_Pregunta__descripcion": "\n                \nIs there a shortcut to make a simple list out of a list of lists in Python?\nI can do it in a for loop, but is there some cool \"one-liner\"?\nI tried it with functools.reduce():\nfrom functools import reduce\nl = [[1, 2, 3], [4, 5, 6], [7], [8, 9]]\nreduce(lambda x, y: x.extend(y), l)\n\nBut I get this error:\nTraceback (most recent call last):\n  File \"<stdin>\", line 1, in <module>\n  File \"<stdin>\", line 1, in <lambda>\nAttributeError: 'NoneType' object has no attribute 'extend'\n\n    ",
         "_Pregunta__votes": 4242,
         "_Pregunta__tags": [
+            "flatten",
             "multidimensional-array",
-            "python",
             "list",
-            "flatten"
+            "python"
         ],
         "_Pregunta__respuesta_aceptada": {
             "_id": 214,
@@ -906,34 +992,40 @@
                     "_id": 308,
                     "_Comentario__descripcion": "I tried a test with the same data, using itertools.chain.from_iterable :         $ python -mtimeit -s'from itertools import chain; l=[[1,2,3],[4,5,6], [7], [8,9]]*99' 'list(chain.from_iterable(l))'.   It runs a bit more than twice as fast as the nested list comprehension that's the fastest of the alternatives shown here.",
                     "_Comentario__fecha": "2010-10-15 01:21:33Z, License: CC BY-SA 2.5",
-                    "_Comentario__usuario": "intuited"
+                    "_Comentario__usuario": "intuited",
+                    "usuario_id": null
                 },
                 {
                     "_id": 309,
                     "_Comentario__descripcion": "I found the syntax hard to understand until I realized you can think of it exactly like nested for loops.  for sublist in l: for item in sublist: yield item",
                     "_Comentario__fecha": "2011-07-27 16:43:18Z, License: CC BY-SA 3.0",
-                    "_Comentario__usuario": "Rob Crowell"
+                    "_Comentario__usuario": "Rob Crowell",
+                    "usuario_id": null
                 },
                 {
                     "_id": 310,
                     "_Comentario__descripcion": "[leaf for tree in forest for leaf in tree] might be easier to comprehend and apply.",
                     "_Comentario__fecha": "2013-08-29 01:38:20Z, License: CC BY-SA 3.0",
-                    "_Comentario__usuario": "John Mee"
+                    "_Comentario__usuario": "John Mee",
+                    "usuario_id": null
                 },
                 {
                     "_id": 311,
                     "_Comentario__descripcion": "@RobCrowell Same here. To me the list comprehension one doesn't read right, something feels off about it - I always seem to get it wrong and end up googling. To me this reads right [leaf for leaf in tree for tree in forest]. I wish this is how it was. I am sure I am missing something about the grammar here, and I would appreciate if anyone could point that out.",
                     "_Comentario__fecha": "2021-07-12 17:19:14Z, License: CC BY-SA 4.0",
-                    "_Comentario__usuario": "S\u043d\u0430\u0111\u043e\u0448\u0192\u0430\u04fd"
+                    "_Comentario__usuario": "S\u043d\u0430\u0111\u043e\u0448\u0192\u0430\u04fd",
+                    "usuario_id": null
                 },
                 {
                     "_id": 312,
                     "_Comentario__descripcion": "I kept looking here every time I wanted to flatten a list, but this gif is what drove it home: i.stack.imgur.com/0GoV5.gif",
                     "_Comentario__fecha": "2021-08-11 12:04:22Z, License: CC BY-SA 4.0",
-                    "_Comentario__usuario": "Gilthans"
+                    "_Comentario__usuario": "Gilthans",
+                    "usuario_id": null
                 }
             ],
-            "_Respuesta__usuario": "Alex Martelli"
+            "_Respuesta__usuario": "Alex Martelli",
+            "usuario_id": null
         },
         "_Pregunta__respondida": true,
         "_Pregunta__respuestas": [
@@ -963,22 +1055,26 @@
                 "_id": 355,
                 "_Comentario__descripcion": "There's an in-depth discussion of this here: rightfootin.blogspot.com/2006/09/more-on-python-flatten.html, discussing several methods of flattening arbitrarily nested lists of lists. An interesting read!",
                 "_Comentario__fecha": "2009-06-04 20:41:13Z, License: CC BY-SA 2.5",
-                "_Comentario__usuario": "RichieHindle"
+                "_Comentario__usuario": "RichieHindle",
+                "usuario_id": null
             },
             {
                 "_id": 356,
                 "_Comentario__descripcion": "Some other answers are better but the reason yours fails is that the 'extend' method always returns None. For a list with length 2, it will work but return None. For a longer list, it will consume the first 2 args, which returns None. It then continues with None.extend(<third arg>), which causes this erro",
                 "_Comentario__fecha": "2013-06-11 21:48:27Z, License: CC BY-SA 3.0",
-                "_Comentario__usuario": "mehtunguh"
+                "_Comentario__usuario": "mehtunguh",
+                "usuario_id": null
             },
             {
                 "_id": 357,
                 "_Comentario__descripcion": "stackoverflow.com/questions/50259290/\u2026   (this article explain the difference between an np.flatten() and a tf.flatten() use (static vs dynamic) ndarray.",
                 "_Comentario__fecha": "2020-12-18 16:48:11Z, License: CC BY-SA 4.0",
-                "_Comentario__usuario": "Golden Lion"
+                "_Comentario__usuario": "Golden Lion",
+                "usuario_id": null
             }
         ],
-        "_Pregunta__usuario": "Emma"
+        "_Pregunta__usuario": "Emma",
+        "usuario_id": null
     },
     {
         "_id": 12,
@@ -988,10 +1084,10 @@
         "_Pregunta__votes": 261,
         "_Pregunta__tags": [
             "python-3.x",
-            "int",
             "input",
-            "python",
-            "python-2.7"
+            "python-2.7",
+            "int",
+            "python"
         ],
         "_Pregunta__respuesta_aceptada": {
             "_id": 235,
@@ -1003,22 +1099,26 @@
                     "_id": 358,
                     "_Comentario__descripcion": "Is there any other way, like a function or something so that we dont need to convert to int in 3.x other than doing explicit conversion to int??",
                     "_Comentario__fecha": "2016-04-09 06:19:24Z, License: CC BY-SA 3.0",
-                    "_Comentario__usuario": "Shreyan Mehta"
+                    "_Comentario__usuario": "Shreyan Mehta",
+                    "usuario_id": null
                 },
                 {
                     "_id": 359,
                     "_Comentario__descripcion": "@ShreyanMehta eval would work, but don't go for that unless you have pressing reasons.",
                     "_Comentario__fecha": "2016-04-09 07:01:32Z, License: CC BY-SA 3.0",
-                    "_Comentario__usuario": "thefourtheye"
+                    "_Comentario__usuario": "thefourtheye",
+                    "usuario_id": null
                 },
                 {
                     "_id": 360,
                     "_Comentario__descripcion": "@thefourtheye at least use ast.literal_eval for that. It does not have the security concerns of eval.",
                     "_Comentario__fecha": "2018-04-06 12:48:28Z, License: CC BY-SA 3.0",
-                    "_Comentario__usuario": "spectras"
+                    "_Comentario__usuario": "spectras",
+                    "usuario_id": null
                 }
             ],
-            "_Respuesta__usuario": "thefourtheye"
+            "_Respuesta__usuario": "thefourtheye",
+            "usuario_id": null
         },
         "_Pregunta__respondida": true,
         "_Pregunta__respuestas": [
@@ -1038,10 +1138,12 @@
                 "_id": 367,
                 "_Comentario__descripcion": "asking-the-user-for-input-until-they-give-a-valid-response",
                 "_Comentario__fecha": "2018-09-13 20:50:23Z, License: CC BY-SA 4.0",
-                "_Comentario__usuario": "Patrick Artner"
+                "_Comentario__usuario": "Patrick Artner",
+                "usuario_id": null
             }
         ],
-        "_Pregunta__usuario": "ANON"
+        "_Pregunta__usuario": "ANON",
+        "usuario_id": null
     },
     {
         "_id": 13,
@@ -1050,9 +1152,9 @@
         "_Pregunta__descripcion": "\n                \nI have a list of arbitrary length, and I need to split it up into equal size chunks and operate on it. There are some obvious ways to do this, like keeping a counter and two lists, and when the second list fills up, add it to the first list and empty the second list for the next round of data, but this is potentially extremely expensive.\n\nI was wondering if anyone had a good solution to this for lists of any length, e.g. using generators.\n\nI was looking for something useful in itertools but I couldn't find anything obviously useful. Might've missed it, though.\n\nRelated question: What is the most \u201cpythonic\u201d way to iterate over a list in chunks?\n    ",
         "_Pregunta__votes": 2639,
         "_Pregunta__tags": [
-            "python",
-            "list",
             "chunks",
+            "list",
+            "python",
             "split"
         ],
         "_Pregunta__respuesta_aceptada": {
@@ -1065,34 +1167,40 @@
                     "_id": 368,
                     "_Comentario__descripcion": "What happens if we can't tell the length of the list? Try this on itertools.repeat([ 1, 2, 3 ]), e.g.",
                     "_Comentario__fecha": "2008-11-23 12:51:10Z, License: CC BY-SA 2.5",
-                    "_Comentario__usuario": "jespern"
+                    "_Comentario__usuario": "jespern",
+                    "usuario_id": null
                 },
                 {
                     "_id": 369,
                     "_Comentario__descripcion": "That's an interesting extension to the question, but the original question clearly asked about operating on a list.",
                     "_Comentario__fecha": "2008-11-23 13:53:37Z, License: CC BY-SA 2.5",
-                    "_Comentario__usuario": "Ned Batchelder"
+                    "_Comentario__usuario": "Ned Batchelder",
+                    "usuario_id": null
                 },
                 {
                     "_id": 370,
                     "_Comentario__descripcion": "this functions needs to be in the damn standard library",
                     "_Comentario__fecha": "2018-02-04 14:19:55Z, License: CC BY-SA 3.0",
-                    "_Comentario__usuario": "dgan"
+                    "_Comentario__usuario": "dgan",
+                    "usuario_id": null
                 },
                 {
                     "_id": 371,
                     "_Comentario__descripcion": "@Calimo: what do you suggest? I hand you a list with 47 elements. How would you like to split it into \"evenly sized chunks\"? The OP accepted the answer, so they are clearly OK with the last differently sized chunk. Perhaps the English phrase is imprecise?",
                     "_Comentario__fecha": "2018-06-14 15:29:23Z, License: CC BY-SA 4.0",
-                    "_Comentario__usuario": "Ned Batchelder"
+                    "_Comentario__usuario": "Ned Batchelder",
+                    "usuario_id": null
                 },
                 {
                     "_id": 372,
                     "_Comentario__descripcion": "Most people will be looking at this for batch processing and rate limiting, so it usually doesn't matter if the last chunk is smaller",
                     "_Comentario__fecha": "2019-07-04 12:46:37Z, License: CC BY-SA 4.0",
-                    "_Comentario__usuario": "Alvaro"
+                    "_Comentario__usuario": "Alvaro",
+                    "usuario_id": null
                 }
             ],
-            "_Respuesta__usuario": "Ned Batchelder"
+            "_Respuesta__usuario": "Ned Batchelder",
+            "usuario_id": null
         },
         "_Pregunta__respondida": true,
         "_Pregunta__respuestas": [
@@ -1132,16 +1240,19 @@
                 "_id": 411,
                 "_Comentario__descripcion": "Before you post a new answer, consider there are already 60+ answers for this question. Please, make sure that your answer contributes information that is not among existing answers.",
                 "_Comentario__fecha": "2020-02-03 12:17:33Z, License: CC BY-SA 4.0",
-                "_Comentario__usuario": "janniks"
+                "_Comentario__usuario": "janniks",
+                "usuario_id": null
             },
             {
                 "_id": 412,
                 "_Comentario__descripcion": "simple one at stackoverflow.com/a/66967457/687896",
                 "_Comentario__fecha": "2021-04-06 11:13:04Z, License: CC BY-SA 4.0",
-                "_Comentario__usuario": "Brandt"
+                "_Comentario__usuario": "Brandt",
+                "usuario_id": null
             }
         ],
-        "_Pregunta__usuario": "jespern"
+        "_Pregunta__usuario": "jespern",
+        "usuario_id": null
     },
     {
         "_id": 14,
@@ -1152,8 +1263,8 @@
         "_Pregunta__tags": [
             "parameter-passing",
             "python",
-            "pass-by-reference",
-            "reference"
+            "reference",
+            "pass-by-reference"
         ],
         "_Pregunta__respuesta_aceptada": {
             "_id": 277,
@@ -1165,34 +1276,40 @@
                     "_id": 413,
                     "_Comentario__descripcion": "Then the same is in C, when you pass \"by reference\" you're actually passing by value the reference... Define \"by reference\" :P",
                     "_Comentario__fecha": "2009-06-12 11:52:33Z, License: CC BY-SA 2.5",
-                    "_Comentario__usuario": "Andrea Ambu"
+                    "_Comentario__usuario": "Andrea Ambu",
+                    "usuario_id": null
                 },
                 {
                     "_id": 414,
                     "_Comentario__descripcion": "I'm not sure I understand your terms. I've been out of the C game for a while, but back when I was in it, there was no \"pass by reference\" - you could pass things, and it was always pass by value, so whatever was in the parameter list was copied. But sometimes the thing was a pointer, which one could follow to the piece of memory (primitive, array, struct, whatever), but you couldn't change the pointer that was copied from the outer scope - when you were done with the function, the original pointer still pointed to the same address. C++ introduced references, which behaved differently.",
                     "_Comentario__fecha": "2009-06-12 12:09:22Z, License: CC BY-SA 2.5",
-                    "_Comentario__usuario": "Blair Conrad"
+                    "_Comentario__usuario": "Blair Conrad",
+                    "usuario_id": null
                 },
                 {
                     "_id": 415,
                     "_Comentario__descripcion": "@Zac Bowling I don't really get how what you're saying is relevant, in a practical sense, to this answer. If a Python newcomer wanted to know about passing by ref/val, then the takeaway from this answer is: 1- You can use the reference that a function receives as its arguments, to modify the 'outside' value of a variable, as long as you don't reassign the parameter to refer to a new object. 2- Assigning to an immutable type will always create a new object, which breaks the reference that you had to the outside variable.",
                     "_Comentario__fecha": "2011-09-08 23:50:34Z, License: CC BY-SA 3.0",
-                    "_Comentario__usuario": "Cam Jackson"
+                    "_Comentario__usuario": "Cam Jackson",
+                    "usuario_id": null
                 },
                 {
                     "_id": 416,
                     "_Comentario__descripcion": "@CamJackson, you need a better example - numbers are also immutable objects in Python. Besides, wouldn't it be true to say that any assignment without subscripting on the left side of the equals will reassign the name to a new object whether it is immutable or not? def Foo(alist): alist = [1,2,3] will not modify the contents of the list from the callers perspective.",
                     "_Comentario__fecha": "2011-11-15 16:46:32Z, License: CC BY-SA 3.0",
-                    "_Comentario__usuario": "Mark Ransom"
+                    "_Comentario__usuario": "Mark Ransom",
+                    "usuario_id": null
                 },
                 {
                     "_id": 417,
                     "_Comentario__descripcion": "-1. The code shown is good, the explanation as to how is completely wrong.  See the answers by DavidCournapeau or DarenThomas for correct explanations as to why.",
                     "_Comentario__fecha": "2012-01-07 06:41:59Z, License: CC BY-SA 3.0",
-                    "_Comentario__usuario": "Ethan Furman"
+                    "_Comentario__usuario": "Ethan Furman",
+                    "usuario_id": null
                 }
             ],
-            "_Respuesta__usuario": "Blair Conrad"
+            "_Respuesta__usuario": "Blair Conrad",
+            "usuario_id": null
         },
         "_Pregunta__respondida": true,
         "_Pregunta__respuestas": [
@@ -1232,33 +1349,39 @@
                 "_id": 472,
                 "_Comentario__descripcion": "For a short explanation/clarification see the first answer to this stackoverflow question. As strings are immutable, they won't be changed and a new variable will be created, thus the \"outer\" variable still has the same value.",
                 "_Comentario__fecha": "2009-06-12 10:35:53Z, License: CC BY-SA 2.5",
-                "_Comentario__usuario": "PhilS"
+                "_Comentario__usuario": "PhilS",
+                "usuario_id": null
             },
             {
                 "_id": 473,
                 "_Comentario__descripcion": "The code in BlairConrad's answer is good, but the explanation provided by DavidCournapeau and DarenThomas is correct.",
                 "_Comentario__fecha": "2012-01-07 06:47:10Z, License: CC BY-SA 3.0",
-                "_Comentario__usuario": "Ethan Furman"
+                "_Comentario__usuario": "Ethan Furman",
+                "usuario_id": null
             },
             {
                 "_id": 474,
                 "_Comentario__descripcion": "Before reading the selected answer, please consider reading this short text Other languages have \"variables\", Python has \"names\". Think about \"names\" and \"objects\" instead of \"variables\" and \"references\" and you should avoid a lot of similar problems.",
                 "_Comentario__fecha": "2012-11-15 00:39:20Z, License: CC BY-SA 3.0",
-                "_Comentario__usuario": "lqc"
+                "_Comentario__usuario": "lqc",
+                "usuario_id": null
             },
             {
                 "_id": 475,
                 "_Comentario__descripcion": "Why does this needlessly use a class? This isn't Java :P",
                 "_Comentario__fecha": "2014-10-22 19:19:01Z, License: CC BY-SA 3.0",
-                "_Comentario__usuario": "Peter R"
+                "_Comentario__usuario": "Peter R",
+                "usuario_id": null
             },
             {
                 "_id": 476,
                 "_Comentario__descripcion": "New official how of Iqc's link: david.goodger.org/projects/pycon/2007/idiomatic/\u2026",
                 "_Comentario__fecha": "2020-06-09 19:56:56Z, License: CC BY-SA 4.0",
-                "_Comentario__usuario": "Ray Hulha"
+                "_Comentario__usuario": "Ray Hulha",
+                "usuario_id": null
             }
         ],
-        "_Pregunta__usuario": "David Sykes"
+        "_Pregunta__usuario": "David Sykes",
+        "usuario_id": null
     }
 ]

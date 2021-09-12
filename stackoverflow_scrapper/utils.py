@@ -15,3 +15,6 @@ def collectComments(pageElementList : list, attributeList : list):
         comentario = Comentario(descripcion_com, fecha_com, usuario_com)
 
         attributeList.append(comentario)
+
+def determineUser():
+    pass

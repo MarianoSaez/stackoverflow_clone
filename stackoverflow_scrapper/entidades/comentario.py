@@ -6,6 +6,7 @@ class Comentario:
         self.descripcion = descripcion
         self.fecha = fecha
         self.usuario = usuario
+        self.usuario_id = None
 
     @property
     def descripcion(self):
